@@ -105,7 +105,6 @@ public class CommunitySignUpActivity extends Fragment {
 									
 
 									try {
-										Log.d("renter", "started");
 										user.signUpInBackground(new SignUpCallback() {
 											@Override
 											public void done(com.parse.ParseException e) {
@@ -123,7 +122,6 @@ public class CommunitySignUpActivity extends Fragment {
 												
 
 												} else {
-													Log.d("renter", "failed:"+ e.toString());
 													Toast.makeText(
 															context,
 															"Error in Creating account."
@@ -135,7 +133,6 @@ public class CommunitySignUpActivity extends Fragment {
 												 progressDialog.dismiss();
 											}
 										});
-										Log.d("renter", "completed");
 									} catch (Exception ex) {
 										Toast.makeText(context,
 												"Exception:" + ex.getMessage(),

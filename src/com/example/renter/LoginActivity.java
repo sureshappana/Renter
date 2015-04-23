@@ -1,9 +1,5 @@
 package com.example.renter;
 
-import com.parse.LogInCallback;
-import com.parse.ParseException;
-import com.parse.ParseUser;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +7,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.community.renter.CommunityMainActivity;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 public class LoginActivity extends Activity {
 
@@ -75,6 +76,8 @@ public class LoginActivity extends Activity {
 															"Email Verified",
 															Toast.LENGTH_SHORT)
 															.show();
+													startActivity(new Intent(LoginActivity.this,
+															CommunityMainActivity.class));
 												}
 											} else {
 												// Signup failed. Look at the

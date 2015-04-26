@@ -11,6 +11,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import android.R.string;
@@ -69,13 +70,13 @@ public class TenantAddTicketActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				mTenantId = "";// get From Login Details
+				mTenantId = CommonFunctions.UserTableClass.mCurrentUser;// get From Login Details
 				mCommunityId = "";// get From Login Details
 				mTitle = ((EditText) findViewById(R.id.editTextTenantTicketAddTitle)).getText().toString();
 				mDescription = ((EditText) findViewById(R.id.editTextTenantTicketAddDescription)).getText().toString();
 				mStatus = RenterConstantVariables.TICKET_STATUS_OPEN;
 				mStartDate = new Date();
-				mApartmentNo = ""; //get from login Details
+				mApartmentNo = TenantHomePageActivity.mCurrentUserFlatNo; //get from login Details
 				if(mPriorityGroup.getCheckedRadioButtonId()==R.id.radio0TenantTicketAddPriority){
 					mPriority = RenterConstantVariables.HIGH;
 				}else if(mPriorityGroup.getCheckedRadioButtonId()==R.id.radio1TenantTicketAddPriority){
@@ -128,7 +129,16 @@ public class TenantAddTicketActivity extends Activity {
 		
 		//code for edit ticket
 		if(getIntent().getExtras().get(RenterConstantVariables.EDIT_TICKET)!=null){
-			//if tenant login, make statusTextView and RadioGroup invisible
+			//if tenant login, make statusTextView and RadioGroup invisible, closedate textview clickable/focussable
+			
+			if(!CommonFunctions.UserTableClass.mCurrentUserIsAdmin){
+				//make end date not clickable
+				mStatusGroup.setVisibility(View.INVISIBLE);
+				((TextView)findViewById(R.id.textViewTenantTicketAddStatus)).setVisibility(View.INVISIBLE);
+				((TextView)findViewById(R.id.textViewTenantAddTicketEndDate)).setFocusable(false);
+				((TextView)findViewById(R.id.textViewTenantAddTicketEndDate)).setFocusableInTouchMode(false);
+			}
+			
 			final Ticket mTicketBeforeEdit = (Ticket) getIntent().getExtras()
 										.getSerializable(RenterConstantVariables.EDIT_TICKET);
 			((EditText)findViewById(R.id.editTextTenantTicketAddTitle)).setText(mTicketBeforeEdit.getmTitle());

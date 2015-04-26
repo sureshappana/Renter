@@ -1,7 +1,13 @@
 package com.example.renter;
 
+import java.util.List;
+
 import com.community.renter.CommunityMainActivity;
 import com.community.renter.TicketsFragment;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import android.app.Activity;
@@ -22,31 +28,21 @@ import android.widget.ListView;
 public class TenantHomePageActivity extends Activity implements
 		TicketListFragment.OnFragmentInteractionListener {
 
-	TicketDetailsFragment mTicketDetailsFragment;
-	Ticket mTicket;
-
+	
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 	private String[] mCommunityTitles;
-
+	public static String mCurrentUserFlatNo;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tenant_home_page);
 
-		// try {
-		// mTicketListFragment = new TicketListFragment();
-		// getFragmentManager()
-		// .beginTransaction()
-		// .add(R.id.containerItem, mTicketListFragment,
-		// RenterConstantVariables.TICKET_LIST_FRAGMENT)
-		// .commit();
-		// } catch (Exception e1) {
-		// e1.printStackTrace();
-		// }
+		
+		CommonFunctions.UserTableClass.CurrentUserDetails();
 		mTitle = mDrawerTitle = getTitle();
 		mCommunityTitles = getResources().getStringArray(
 				R.array.TenantDrawerOptions_array);
@@ -77,7 +73,21 @@ public class TenantHomePageActivity extends Activity implements
 		if (savedInstanceState == null) {
 			selectItem(0);
 		}
-
+		
+		ParseQuery<ParseObject> mQueryRetrieveApartmentNo = ParseQuery.getQuery(CommonFunctions.FLATINFO_OBJECT);
+		mQueryRetrieveApartmentNo.whereEqualTo(CommonFunctions.FlatInfoTableClass.TENANT_MAIL_ID,
+				CommonFunctions.UserTableClass.mCurrentUser);
+		mQueryRetrieveApartmentNo.findInBackground(new FindCallback<ParseObject>() {
+			
+			@Override
+			public void done(List<ParseObject> mFlatInfo, ParseException e) {
+				Log.d("demo", mFlatInfo.size()+"");
+				mCurrentUserFlatNo = CommonFunctions.trimString((String)mFlatInfo.get(0).
+						get(CommonFunctions.FlatInfoTableClass.TENANT_FLAT_NO).toString());
+				
+			}
+		});
+		
 	}
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
@@ -87,37 +97,13 @@ public class TenantHomePageActivity extends Activity implements
 		return super.onPrepareOptionsMenu(menu);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_homepage_tenant_activity, menu);
-		return true;
-	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
-		}
-		int id = item.getItemId();
-		
-		if (id == R.id.buttonAddTicket) {
-			Intent i = new Intent(TenantHomePageActivity.this,
-					TenantAddTicketActivity.class);
-			i.putExtra(RenterConstantVariables.ADD_TICKET,
-					RenterConstantVariables.ADD_TICKET);
-			startActivity(i);
-		} else if (id == R.id.buttonEditTicket) {
-			Intent i = new Intent(TenantHomePageActivity.this,
-					TenantAddTicketActivity.class);
-			i.putExtra(RenterConstantVariables.EDIT_TICKET, mTicket);
-			startActivity(i);
-		}
-
-		else if (id == R.id.sortByDate) {
-
-		} else if (id == R.id.sortByStatus) {
-
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -177,8 +163,7 @@ public class TenantHomePageActivity extends Activity implements
 	public void onClickingonTicket(Ticket mTicket) {
 
 		try {
-			this.mTicket = mTicket;
-			mTicketDetailsFragment = TicketDetailsFragment.instanceOf(mTicket);
+			TicketDetailsFragment mTicketDetailsFragment= TicketDetailsFragment.instanceOf(mTicket);
 			getFragmentManager()
 					.beginTransaction()
 					.replace(R.id.content_frameTenant, mTicketDetailsFragment,

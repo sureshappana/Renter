@@ -15,11 +15,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.renter.CommonFunctions;
 import com.example.renter.LoginActivity;
 import com.example.renter.R;
+import com.example.renter.RenterConstantVariables;
+import com.example.renter.TenantHomePageActivity;
+import com.example.renter.Ticket;
+import com.example.renter.TicketDetailsFragment;
+import com.example.renter.TicketListFragment;
 import com.parse.ParseUser;
 
 public class CommunityMainActivity extends Activity implements
+		TicketListFragment.OnFragmentInteractionListener,
 		FlatInfoFragment.OnFragmentInteractionListener,
 		DisplayFlatFragment.OnFragmentInteractionListener,
 		AddFlatFragment.OnFragmentInteractionListener {
@@ -27,7 +34,6 @@ public class CommunityMainActivity extends Activity implements
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 	private String[] mCommunityTitles;
@@ -36,7 +42,8 @@ public class CommunityMainActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_community_main);
-
+		
+		CommonFunctions.UserTableClass.CurrentUserDetails();
 		mTitle = mDrawerTitle = getTitle();
 		mCommunityTitles = getResources().getStringArray(
 				R.array.CommunityDrawerOptions_array);
@@ -103,10 +110,12 @@ public class CommunityMainActivity extends Activity implements
 		switch (position) {
 		case 0:
 			getFragmentManager()
-					.beginTransaction()
-					.replace(R.id.content_frame, new TicketsFragment(),
-							"tickets").addToBackStack(null).commit();
-			break;
+			.beginTransaction()
+			.replace(R.id.content_frame,
+					new TicketListFragment(),
+					RenterConstantVariables.TICKET_LIST_FRAGMENT)
+			.commit();
+	break;
 		case 1:
 			gotoFlatInfoFragment();
 			break;
@@ -188,5 +197,21 @@ public class CommunityMainActivity extends Activity implements
 				.replace(R.id.content_frame, new FlatInfoFragment(), "flatinfo")
 				.addToBackStack(null).commit();
 
+	}
+
+	@Override
+	public void onClickingonTicket(Ticket mTicket) {
+		try {
+			TicketDetailsFragment mTicketDetailsFragment= TicketDetailsFragment.instanceOf(mTicket);
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.content_frame, mTicketDetailsFragment,
+							RenterConstantVariables.TICKET_DETAILS_FRAGMENT)
+					.addToBackStack(null).commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

@@ -32,6 +32,7 @@ public class TicketAdapter extends ArrayAdapter<Ticket>{
 		TextView mTicketDescription = (TextView) convertView.findViewById(R.id.textViewDescriptionTicketAdapter);
 		TextView mTicketStartDate = (TextView) convertView.findViewById(R.id.textViewStartDateTicketAdapter);
 		TextView mTicketStatus = (TextView) convertView.findViewById(R.id.textViewStatusTicketAdapter);
+		TextView mTicketApartmentNo = (TextView) convertView.findViewById(R.id.textViewApartmentNoTicketAdapter);
 		
 		if(tickets!=null){
 			
@@ -39,6 +40,9 @@ public class TicketAdapter extends ArrayAdapter<Ticket>{
 			mTicketDescription.setText(tickets.get(position).getmDescription());
 			mTicketStartDate.setText(mDateFormat.format(tickets.get(position).getmStartDate()));
 			mTicketStatus.setText(tickets.get(position).getmStatus());
+			if(CommonFunctions.UserTableClass.mCurrentUserIsAdmin){
+				mTicketApartmentNo.setText(tickets.get(position).getmApartmentNo());
+			}
 			return convertView;
 		}
 		return null;

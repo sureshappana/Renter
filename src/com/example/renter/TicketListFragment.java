@@ -8,13 +8,18 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -27,14 +32,71 @@ public class TicketListFragment extends Fragment {
 	static TicketAdapter mTicketAdapter;
 	ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 	ListView mticketListView;
-	String ticketListId,ticketListTitle,ticketListDescription,ticketListStatus,ticketListPriority;
+	String ticketListId,ticketListTitle,ticketListDescription,ticketListStatus,ticketListPriority,ticketListApartmentNo;
 	Date ticketStartDate,ticketEndDate;
 
 	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		if(!CommonFunctions.UserTableClass.mCurrentUserIsAdmin){
+		inflater.inflate(R.menu.menu_ticket_list_fragment_tenant, menu);
+		}else{
+			inflater.inflate(R.menu.menu_ticket_list_fragment_admin, menu);
+		}
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == R.id.buttonAddTicket) {
+			Intent i = new Intent(getActivity(),
+					TenantAddTicketActivity.class);
+			i.putExtra(RenterConstantVariables.ADD_TICKET, RenterConstantVariables.ADD_TICKET);
+			startActivity(i);
+		}
+		else if (id == R.id.sortByDate) {
+			try {
+				tickets.clear();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			mDisplayTicketInListViewSortedByUpdatedTime();
+			try {
+				tickets.clear();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} else if (id == R.id.sortByStatus) {
+			try {
+				tickets.clear();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			mDisplayTicketInListViewSortedByStatus();
+			try {
+				tickets.clear();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}		
+		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		setHasOptionsMenu(true);
 		final View view = inflater.inflate(R.layout.fragment_ticket_list, container,
 				false);
+		try {
+			tickets.clear();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		mDisplayTicketInListViewSortedByUpdatedTime();
 		try {
 			tickets.clear();
@@ -63,9 +125,16 @@ public class TicketListFragment extends Fragment {
 	}
 
 	public void mDisplayTicketInListViewSortedByUpdatedTime(){
+		
 		ParseQuery<ParseObject> queryRetriveTicket = 
 				ParseQuery.getQuery(RenterConstantVariables.TICKETTABLE);
+		if(!CommonFunctions.UserTableClass.mCurrentUserIsAdmin){
+		queryRetriveTicket.whereEqualTo(RenterConstantVariables.TICKETTABLE_TENANT_ID, 
+				CommonFunctions.UserTableClass.mCurrentUser);
+		}
+		else{
 		queryRetriveTicket.whereExists(RenterConstantVariables.TICKETTABLE_STATUS);
+		}
 		queryRetriveTicket.orderByDescending("updatedAt");
 		queryRetriveTicket.findInBackground(new FindCallback<ParseObject>() {
 			
@@ -75,6 +144,9 @@ public class TicketListFragment extends Fragment {
 					Ticket ticket = new Ticket();
 					ticketListId = ticketList.get(i).getObjectId();
 					ticket.setmId(ticketListId);
+					ticketListApartmentNo = ticketList.get(i)
+							.getString(RenterConstantVariables.TICKETTABLE_APARTMENT_NO);
+					ticket.setmApartmentNo(ticketListApartmentNo);
 					ticketListTitle = ticketList.get(i)
 							.getString(RenterConstantVariables.TICKETTABLE_TITLE);
 					ticket.setmTitle(ticketListTitle);
@@ -113,7 +185,13 @@ public class TicketListFragment extends Fragment {
 	public void mDisplayTicketInListViewSortedByStatus(){
 		ParseQuery<ParseObject> queryRetriveTicket = 
 				ParseQuery.getQuery(RenterConstantVariables.TICKETTABLE);
-		queryRetriveTicket.whereExists(RenterConstantVariables.TICKETTABLE_STATUS);
+		if(!CommonFunctions.UserTableClass.mCurrentUserIsAdmin){
+			queryRetriveTicket.whereEqualTo(RenterConstantVariables.TICKETTABLE_TENANT_ID, 
+					CommonFunctions.UserTableClass.mCurrentUser);
+			}
+			else{
+			queryRetriveTicket.whereExists(RenterConstantVariables.TICKETTABLE_STATUS);
+			}
 		queryRetriveTicket.orderByDescending(RenterConstantVariables.TICKETTABLE_STATUS);
 		queryRetriveTicket.findInBackground(new FindCallback<ParseObject>() {
 			
@@ -123,6 +201,9 @@ public class TicketListFragment extends Fragment {
 					Ticket ticket = new Ticket();
 					ticketListId = ticketList.get(i).getObjectId();
 					ticket.setmId(ticketListId);
+					ticketListApartmentNo = ticketList.get(i)
+							.getString(RenterConstantVariables.TICKETTABLE_APARTMENT_NO);
+					ticket.setmApartmentNo(ticketListApartmentNo);
 					ticketListTitle = ticketList.get(i)
 							.getString(RenterConstantVariables.TICKETTABLE_TITLE);
 					ticket.setmTitle(ticketListTitle);

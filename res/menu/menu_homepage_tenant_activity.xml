@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/sortByDate"
+        android:title="Sort by date">
+    </item>
+    <item
+        android:id="@+id/sortByStatus"
+        android:title="Sort by status">
+    </item>
+    <item
+        android:id="@+id/buttonAddTicket"
+        android:icon="@drawable/add"
+        android:showAsAction="always"
+        android:title="Add new ticket">
+    </item>
+    <item
+        android:id="@+id/buttonEditTicket"
+        android:icon="@drawable/edit"
+        android:showAsAction="always"
+        android:title="Edit ticket">
+    </item>
+
+</menu>

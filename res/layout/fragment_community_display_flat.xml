@@ -1,0 +1,75 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.community.renter.AddFlatFragment" >
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+
+        <TextView
+            android:id="@+id/flatNumberTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="35dp"
+            android:text="@string/flatNumberTitleTextView"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/flatNumberTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/flatNumberTitleTextView"
+            android:layout_alignBottom="@+id/flatNumberTitleTextView"
+            android:layout_marginLeft="31dp"
+            android:layout_toRightOf="@+id/flatNumberTitleTextView"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/tenantNameTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/flatNumberTitleTextView"
+            android:layout_below="@+id/flatNumberTitleTextView"
+            android:layout_marginTop="22dp"
+            android:text="@string/tenantNameTitleTextView"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/tenantNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tenantNameTitleTextView"
+            android:layout_alignBottom="@+id/tenantNameTitleTextView"
+            android:layout_alignLeft="@+id/flatNumberTextView"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/tenantMailIdTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tenantNameTitleTextView"
+            android:layout_below="@+id/tenantNameTitleTextView"
+            android:layout_marginTop="22dp"
+            android:text="@string/tenantMailIdTitleTextView"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/tenantMailIdTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tenantMailIdTitleTextView"
+            android:layout_alignBottom="@+id/tenantMailIdTitleTextView"
+            android:layout_alignLeft="@+id/tenantNameTextView"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </RelativeLayout>
+
+</FrameLayout>

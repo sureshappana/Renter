@@ -38,6 +38,14 @@
             android:name=".TicketsActivity"
             android:label="@string/title_activity_tickets" >
         </activity>
+        <activity
+            android:name=".TenantHomePageActivity"
+            android:label="@string/title_activity_tenant" >
+        </activity>
+        <activity
+            android:name=".TenantAddTicketActivity"
+            android:label="@string/title_activity_add_tickets" >
+        </activity>
     </application>
 
 </manifest>

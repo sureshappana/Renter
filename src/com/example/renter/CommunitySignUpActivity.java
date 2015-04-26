@@ -31,7 +31,8 @@ public class CommunitySignUpActivity extends Fragment {
 
 					@Override
 					public void onClick(View v) {
-						final Context context = getActivity().getApplicationContext();
+						final Context context = getActivity()
+								.getApplicationContext();
 						int mZipCode = -1;
 						long mContactNumber = -1;
 
@@ -82,14 +83,16 @@ public class CommunitySignUpActivity extends Fragment {
 							if (mPassword.equals(mCPassword)) {
 								if (android.util.Patterns.EMAIL_ADDRESS
 										.matcher(mCommunityEmail).matches()) {
-									Toast.makeText(context, "ok",
-											Toast.LENGTH_SHORT).show();
-									final ProgressDialog progressDialog = new ProgressDialog(
-											view.getContext());
-									progressDialog
-											.setMessage("Signing up. Please wait...");
-									progressDialog.setCancelable(false);
-									progressDialog.show();
+									// final ProgressDialog progressDialog = new
+									// ProgressDialog(
+									// view.getContext());
+									// progressDialog
+									// .setMessage("Signing up. Please wait...");
+									// progressDialog.setCancelable(false);
+									// progressDialog.show();
+									CommonFunctions.startProgressDialog(
+											view.getContext(),
+											"Signing up. Please wait...");
 
 									ParseUser user = new ParseUser();
 									user.setUsername(mCommunityEmail);
@@ -102,63 +105,55 @@ public class CommunitySignUpActivity extends Fragment {
 									user.put("Country", mCountry);
 									user.put("ZipCode", mZipCode);
 									user.put("isCommunity", true);
-									
 
 									try {
 										user.signUpInBackground(new SignUpCallback() {
 											@Override
-											public void done(com.parse.ParseException e) {
+											public void done(
+													com.parse.ParseException e) {
 												Log.d("renter", "inside");
 												if (e == null) {
 													Log.d("renter", "created");
-													Toast.makeText(
-															context,
-															"A confirmation email sent you the specified email.",
-															Toast.LENGTH_SHORT)
-															.show();
+													CommonFunctions
+															.toastMessage(
+																	context,
+																	"A confirmation email sent you the specified email.");
 													startActivity(new Intent(
 															view.getContext(),
 															LoginActivity.class));
-												
 
 												} else {
-													Toast.makeText(
-															context,
-															"Error in Creating account."
-																	+ e.toString(),
-															Toast.LENGTH_SHORT)
-															.show();
-													
+													CommonFunctions
+															.toastMessage(
+																	context,
+																	"Error in Creating account."
+																			+ e.toString());
 												}
-												 progressDialog.dismiss();
+												// progressDialog.dismiss();
+												CommonFunctions
+														.stopProgressDialog();
 											}
 										});
 									} catch (Exception ex) {
-										Toast.makeText(context,
-												"Exception:" + ex.getMessage(),
-												Toast.LENGTH_SHORT).show();
+										CommonFunctions.toastMessage(context,
+												"Exception:" + ex.getMessage());
 									}
 								} else {
-									Toast.makeText(context,
-											"Please enter valid email address",
-											Toast.LENGTH_SHORT).show();
+									CommonFunctions.toastMessage(context,
+											"Please enter valid email address");
 								}
 							} else {
-								Toast.makeText(
-										context,
-										"Password and Confirmation password are not matched",
-										Toast.LENGTH_SHORT).show();
+								CommonFunctions.toastMessage(context,
+										"Password and Confirmation password are not matched");
 							}
 
 						} else {
-							Toast.makeText(context,
-									"Please fill all the details",
-									Toast.LENGTH_SHORT).show();
+							CommonFunctions.toastMessage(context,
+									"Please fill all the details");
 						}
 
 					}
 				});
 		return view;
 	}
-
 }

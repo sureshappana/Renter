@@ -10,6 +10,7 @@ package com.example.renter;
 public final class R {
     public static final class array {
         public static final int CommunityDrawerOptions_array=0x7f060000;
+        public static final int TenantDrawerOptions_array=0x7f060001;
     }
     public static final class attr {
     }
@@ -21,83 +22,187 @@ public final class R {
     }
     public static final class drawable {
         public static final int action_search=0x7f020000;
-        public static final int drawer_shadow=0x7f020001;
-        public static final int email=0x7f020002;
-        public static final int ic_drawer=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
+        public static final int add=0x7f020001;
+        public static final int delete=0x7f020002;
+        public static final int drawer_shadow=0x7f020003;
+        public static final int edit=0x7f020004;
+        public static final int email=0x7f020005;
+        public static final int ic_drawer=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
+        public static final int input_border=0x7f020008;
     }
     public static final class id {
-        public static final int addFlat=0x7f080017;
-        public static final int communitySignUpBtn=0x7f080013;
-        public static final int container=0x7f080009;
-        public static final int content_frame=0x7f080002;
-        public static final int deleteFlat=0x7f080016;
-        public static final int drawer_layout=0x7f080000;
-        public static final int image=0x7f080018;
-        public static final int left_drawer=0x7f080003;
-        public static final int loginBtn=0x7f080006;
-        public static final int mCPassword=0x7f08000d;
-        public static final int mCity=0x7f08000f;
-        public static final int mCommunityEmail=0x7f08000b;
-        public static final int mCommunityName=0x7f08000a;
-        public static final int mContactNumber=0x7f08000c;
-        public static final int mCountry=0x7f080011;
-        public static final int mEmail=0x7f080014;
-        public static final int mPassword=0x7f080005;
-        public static final int mPostalAddress=0x7f08000e;
-        public static final int mState=0x7f080010;
-        public static final int mUserName=0x7f080004;
-        public static final int mVe=0x7f080001;
-        public static final int mVerifyEmail=0x7f080015;
-        public static final int mZipCode=0x7f080012;
-        public static final int signUPSwitch=0x7f080008;
-        public static final int signUpBtn=0x7f080007;
+        public static final int LayoutTenantTicketAddPriority=0x7f090016;
+        public static final int LayoutTenantTicketAddRadioGroups=0x7f090015;
+        public static final int LayoutTenantTicketAddStatus=0x7f09001c;
+        public static final int LinearLayout1=0x7f090042;
+        public static final int RelativeLayout1=0x7f090039;
+        public static final int action_addFlat=0x7f09004f;
+        public static final int action_deleteFlat=0x7f090050;
+        public static final int action_deleteTenant=0x7f090051;
+        public static final int action_editFlat=0x7f090052;
+        public static final int addFlatButton=0x7f090038;
+        public static final int buttonAddTicket=0x7f090055;
+        public static final int buttonEditTicket=0x7f090056;
+        public static final int buttonSubmitTenantTicketAdd=0x7f090025;
+        public static final int communitySignUpBtn=0x7f090012;
+        public static final int container=0x7f090008;
+        public static final int content_frame=0x7f090001;
+        public static final int content_frameTenant=0x7f090027;
+        public static final int drawer_layout=0x7f090000;
+        public static final int drawer_layoutTenant=0x7f090026;
+        public static final int editTextTenantTicketAddDescription=0x7f090014;
+        public static final int editTextTenantTicketAddTitle=0x7f090013;
+        public static final int flatNumberEditText=0x7f090035;
+        public static final int flatNumberTextView=0x7f09003b;
+        public static final int flatNumberTitleTextView=0x7f09003a;
+        public static final int flatsListView=0x7f090040;
+        public static final int left_drawer=0x7f090002;
+        public static final int left_drawerTenant=0x7f090028;
+        public static final int linearLayoutTenantTicketAddDate=0x7f090022;
+        public static final int listViewTicket=0x7f09004a;
+        public static final int loginBtn=0x7f090005;
+        public static final int mCPassword=0x7f09000c;
+        public static final int mCity=0x7f09000e;
+        public static final int mCommunityEmail=0x7f09000a;
+        public static final int mCommunityName=0x7f090009;
+        public static final int mCommunityNameTextView=0x7f090033;
+        public static final int mCommunityNameTitleTextView=0x7f09002b;
+        public static final int mContactNumber=0x7f09000b;
+        public static final int mCountry=0x7f090010;
+        public static final int mFlatNumberTextView=0x7f09002e;
+        public static final int mFlatNumberTitleTextView=0x7f090034;
+        public static final int mPassword=0x7f090004;
+        public static final int mPostalAddress=0x7f09000d;
+        public static final int mState=0x7f09000f;
+        public static final int mTenantCPassword=0x7f090031;
+        public static final int mTenantContactNumber=0x7f090030;
+        public static final int mTenantEmail=0x7f090029;
+        public static final int mTenantName=0x7f09002c;
+        public static final int mTenantNameTitle=0x7f09002d;
+        public static final int mTenantPassword=0x7f090032;
+        public static final int mTenantSingUpButton=0x7f09002f;
+        public static final int mUserName=0x7f090003;
+        public static final int mVerifyEmailButton=0x7f09002a;
+        public static final int mZipCode=0x7f090011;
+        public static final int radio0TenantTicketAddPriority=0x7f090019;
+        public static final int radio0TenantTicketAddStatus=0x7f09001f;
+        public static final int radio1TenantTicketAddPriority=0x7f09001a;
+        public static final int radio1TenantTicketAddStatus=0x7f090020;
+        public static final int radio2TenantTicketAddPriority=0x7f09001b;
+        public static final int radio2TenantTicketAddStatus=0x7f090021;
+        public static final int radioGroupTenantTicketAddPriority=0x7f090018;
+        public static final int radioGroupTenantTicketAddStatus=0x7f09001e;
+        public static final int scrollView1=0x7f090041;
+        public static final int signUPSwitch=0x7f090007;
+        public static final int signUpBtn=0x7f090006;
+        public static final int sortByDate=0x7f090053;
+        public static final int sortByStatus=0x7f090054;
+        public static final int tenantMailIdEditText=0x7f090037;
+        public static final int tenantMailIdTextView=0x7f09003f;
+        public static final int tenantMailIdTitleTextView=0x7f09003e;
+        public static final int tenantNameEditText=0x7f090036;
+        public static final int tenantNameTextView=0x7f09003d;
+        public static final int tenantNameTitleTextView=0x7f09003c;
+        public static final int textViewDescriptionTicketAdapter=0x7f09004d;
+        public static final int textViewStartDateTicketAdapter=0x7f09004c;
+        public static final int textViewStatusTicketAdapter=0x7f09004e;
+        public static final int textViewTenantAddTicketEndDate=0x7f090024;
+        public static final int textViewTenantAddTicketStartDate=0x7f090023;
+        public static final int textViewTenantTicketAddPriority=0x7f090017;
+        public static final int textViewTenantTicketAddStatus=0x7f09001d;
+        public static final int textViewTicketDetailsApartmentNo=0x7f090044;
+        public static final int textViewTicketDetailsTicketDescription=0x7f090045;
+        public static final int textViewTicketDetailsTicketEndDate=0x7f090049;
+        public static final int textViewTicketDetailsTicketPriority=0x7f090046;
+        public static final int textViewTicketDetailsTicketStartDate=0x7f090048;
+        public static final int textViewTicketDetailsTicketStatus=0x7f090047;
+        public static final int textViewTicketDetailsTicketTitle=0x7f090043;
+        public static final int textViewTitleTicketAdapter=0x7f09004b;
     }
     public static final class layout {
         public static final int activity_community_main=0x7f030000;
         public static final int activity_login=0x7f030001;
         public static final int activity_sign_up=0x7f030002;
         public static final int activity_sign_up_community=0x7f030003;
-        public static final int activity_tenant_sign_up=0x7f030004;
-        public static final int drawer_list_item=0x7f030005;
-        public static final int fragment_community_add_flat=0x7f030006;
-        public static final int fragment_community_facilities=0x7f030007;
-        public static final int fragment_community_flat_info=0x7f030008;
-        public static final int fragment_community_notifications=0x7f030009;
-        public static final int fragment_community_settings=0x7f03000a;
-        public static final int fragment_community_tickets=0x7f03000b;
-        public static final int fragment_planet=0x7f03000c;
+        public static final int activity_tenant_add_ticket=0x7f030004;
+        public static final int activity_tenant_home_page=0x7f030005;
+        public static final int activity_tenant_sign_up=0x7f030006;
+        public static final int drawer_list_item=0x7f030007;
+        public static final int fragment_community_add_flat=0x7f030008;
+        public static final int fragment_community_display_flat=0x7f030009;
+        public static final int fragment_community_facilities=0x7f03000a;
+        public static final int fragment_community_flat_info=0x7f03000b;
+        public static final int fragment_community_notifications=0x7f03000c;
+        public static final int fragment_community_settings=0x7f03000d;
+        public static final int fragment_community_tickets=0x7f03000e;
+        public static final int fragment_ticket_details=0x7f03000f;
+        public static final int fragment_ticket_list=0x7f030010;
+        public static final int ticket_list_row=0x7f030011;
+    }
+    public static final class menu {
+        public static final int flats_add_menu=0x7f080000;
+        public static final int flats_delete_menu=0x7f080001;
+        public static final int menu_homepage_tenant_activity=0x7f080002;
     }
     public static final class string {
-        public static final int action_settings=0x7f050002;
-        public static final int app_name=0x7f050000;
-        public static final int cPassword_hint=0x7f05000f;
-        public static final int city=0x7f050010;
-        public static final int communityName_hint=0x7f05000d;
-        public static final int contactNumber_hint=0x7f05000e;
-        public static final int country=0x7f050012;
-        public static final int drawer_close=0x7f050017;
-        public static final int drawer_open=0x7f050016;
-        public static final int email_hint=0x7f050005;
-        public static final int hello_blank_fragment=0x7f050019;
-        public static final int hello_world=0x7f050001;
-        public static final int loginBtn=0x7f050003;
-        public static final int mVerifyEmail=0x7f05000a;
-        public static final int password_hint=0x7f050006;
-        public static final int postalAddress=0x7f050014;
-        public static final int signUpBtn=0x7f050004;
-        public static final int signUpSwitch_Community=0x7f05000c;
-        public static final int signUpSwitch_on=0x7f05000b;
-        public static final int state=0x7f050011;
-        public static final int title_activity_community_main=0x7f050015;
-        public static final int title_activity_sign_up=0x7f050007;
-        public static final int title_activity_tenant_sign_up=0x7f050009;
-        public static final int title_activity_test=0x7f050008;
-        public static final int title_activity_tickets=0x7f050018;
-        public static final int zipCode=0x7f050013;
+        public static final int action_addFlat=0x7f050018;
+        public static final int action_deleteFlat=0x7f050019;
+        public static final int action_deleteTenant=0x7f05001a;
+        public static final int action_settings=0x7f050004;
+        public static final int addFlatButton=0x7f05001b;
+        public static final int app_name=0x7f050002;
+        public static final int cPassword_hint=0x7f050011;
+        public static final int city=0x7f050012;
+        public static final int communityName_hint=0x7f05000f;
+        public static final int contactNumber_hint=0x7f050010;
+        public static final int country=0x7f050014;
+        public static final int drawer_close=0x7f05002a;
+        public static final int drawer_open=0x7f050029;
+        public static final int email_hint=0x7f050007;
+        public static final int flatNumberTitleTextView=0x7f050021;
+        public static final int flatNumberhint=0x7f05001c;
+        public static final int hello_blank_fragment=0x7f05002c;
+        public static final int hello_world=0x7f050003;
+        public static final int loginBtn=0x7f050005;
+        public static final int mCommunityNameTitle=0x7f050028;
+        public static final int mFlatNumberTitleTextView=0x7f050022;
+        public static final int mTenantCPassword=0x7f050025;
+        public static final int mTenantContactNumber=0x7f050026;
+        public static final int mTenantNameTitle=0x7f050023;
+        public static final int mTenantPassword=0x7f050024;
+        public static final int mTenantSingUpButton=0x7f050027;
+        public static final int mVerifyEmail=0x7f05000c;
+        public static final int password_hint=0x7f050008;
+        public static final int postalAddress=0x7f050016;
+        public static final int signUpBtn=0x7f050006;
+        public static final int signUpSwitch_Community=0x7f05000e;
+        public static final int signUpSwitch_on=0x7f05000d;
+        public static final int state=0x7f050013;
+        public static final int tenantMailIdTitleTextView=0x7f05001f;
+        public static final int tenantMailIdhint=0x7f05001e;
+        public static final int tenantNameTitleTextView=0x7f050020;
+        public static final int tenantNamehint=0x7f05001d;
+        public static final int title_activity_add_tickets=0x7f050001;
+        public static final int title_activity_community_main=0x7f050017;
+        public static final int title_activity_sign_up=0x7f050009;
+        public static final int title_activity_tenant=0x7f050000;
+        public static final int title_activity_tenant_sign_up=0x7f05000b;
+        public static final int title_activity_test=0x7f05000a;
+        public static final int title_activity_tickets=0x7f05002b;
+        public static final int zipCode=0x7f050015;
     }
     public static final class style {
         /** 
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
+
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
     
@@ -110,6 +215,9 @@ public final class R {
  API 14 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f070000;
+        /**  Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+         */
         public static final int AppTheme=0x7f070001;
     }
 }

@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_deleteFlat"
+        android:showAsAction="never"
+        android:title="@string/action_deleteFlat"/>
+    <item
+        android:id="@+id/action_deleteTenant"
+        android:showAsAction="never"
+        android:title="@string/action_deleteTenant"/>
+    <item
+        android:id="@+id/action_editFlat"
+        android:icon="@drawable/edit"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/action_deleteFlat"/>
+
+</menu>

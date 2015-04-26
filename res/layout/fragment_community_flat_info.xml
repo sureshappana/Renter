@@ -6,28 +6,12 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <Button
-            android:id="@+id/deleteFlat"
+        <ListView
+            android:id="@+id/flatsListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="46dp"
-            android:text="Add Flat" />
-
-        <Button
-            android:id="@+id/addFlat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/deleteFlat"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="37dp"
-            android:text="Remove Flat" />
-
-    </RelativeLayout>
+            android:layout_alignParentTop="true" >
+        </ListView>
 
 </FrameLayout>

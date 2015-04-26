@@ -1,20 +1,28 @@
 package com.community.renter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.renter.LoginActivity;
 import com.example.renter.R;
+import com.parse.ParseUser;
 
-public class CommunityMainActivity extends Activity implements FlatInfoFragment.OnFragmentInteractionListener{
+public class CommunityMainActivity extends Activity implements
+		FlatInfoFragment.OnFragmentInteractionListener,
+		DisplayFlatFragment.OnFragmentInteractionListener,
+		AddFlatFragment.OnFragmentInteractionListener {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -46,12 +54,12 @@ public class CommunityMainActivity extends Activity implements FlatInfoFragment.
 				R.string.drawer_close) {
 			public void onDrawerClosed(View view) {
 				getActionBar().setTitle(mTitle);
-				invalidateOptionsMenu(); 
+				invalidateOptionsMenu();
 			}
 
 			public void onDrawerOpened(View drawerView) {
 				getActionBar().setTitle(mDrawerTitle);
-				invalidateOptionsMenu(); 
+				invalidateOptionsMenu();
 			}
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -59,6 +67,25 @@ public class CommunityMainActivity extends Activity implements FlatInfoFragment.
 		if (savedInstanceState == null) {
 			selectItem(0);
 		}
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		// If the nav drawer is open, hide action items related to the content
+		// view
+		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// The action bar home/up action should open or close the drawer.
+		// ActionBarDrawerToggle will take care of this.
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+		// Handle action buttons
+		return super.onOptionsItemSelected(item);
 	}
 
 	private class DrawerItemClickListener implements
@@ -72,46 +99,47 @@ public class CommunityMainActivity extends Activity implements FlatInfoFragment.
 	}
 
 	private void selectItem(int position) {
-	
-		/*switch(position){
+
+		switch (position) {
 		case 0:
-			getFragmentManager().beginTransaction()
-	        .replace(R.id.content_frame, new TicketsFragment(), "tickets")
-	        .addToBackStack(null)
-	        .commit();
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.content_frame, new TicketsFragment(),
+							"tickets").addToBackStack(null).commit();
 			break;
 		case 1:
-			getFragmentManager().beginTransaction()
-	        .replace(R.id.content_frame, new FlatInfoFragment(), "flatinfo")
-	        .addToBackStack(null)
-	        .commit();
+			gotoFlatInfoFragment();
 			break;
 		case 2:
-			getFragmentManager().beginTransaction()
-	        .replace(R.id.content_frame, new FacilitiesFragment(), "facilites")
-	        .addToBackStack(null)
-	        .commit();
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.content_frame, new FacilitiesFragment(),
+							"facilites").addToBackStack(null).commit();
 			break;
 		case 3:
-			getFragmentManager().beginTransaction()
-	        .replace(R.id.content_frame, new NotificationsFragment(), "notifications")
-	        .addToBackStack(null)
-	        .commit();
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.content_frame, new NotificationsFragment(),
+							"notifications").addToBackStack(null).commit();
 			break;
-		case 4: // Payments fragment
+		case 4: // Payments fragment break; case 5:
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.content_frame, new SettingsFragment(),
+							"settings").addToBackStack(null).commit();
 			break;
-		case 5:
-			getFragmentManager().beginTransaction()
-	        .replace(R.id.content_frame, new SettingsFragment(), "settings")
-	        .addToBackStack(null)
-	        .commit();
-			break; 
-		case 6: //Signout fragment
-			break;
-		default:
-			
-		}*/
-		Log.d("renter","reached to selectitem()"+position);
+		case 6: // Signout fragment break; default:
+			ParseUser.logOut();
+			Intent intent = new Intent(CommunityMainActivity.this,
+					LoginActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			finish();
+
+		}
+
+		Log.d("renter", "reached to selectitem()" + position);
 		mDrawerList.setItemChecked(position, true);
 		setTitle(mCommunityTitles[position]);
 		mDrawerLayout.closeDrawer(mDrawerList);
@@ -122,7 +150,6 @@ public class CommunityMainActivity extends Activity implements FlatInfoFragment.
 		mTitle = title;
 		getActionBar().setTitle(mTitle);
 	}
-
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
@@ -138,7 +165,28 @@ public class CommunityMainActivity extends Activity implements FlatInfoFragment.
 
 	@Override
 	public void gotoAddFlatFragment() {
-		// TODO Auto-generated method stub
-		
+		getFragmentManager().beginTransaction()
+				.replace(R.id.content_frame, new AddFlatFragment(), "add_flat")
+				.addToBackStack(null).commit();
+
+	}
+
+	@Override
+	public void flatSelected(String flatNumber) {
+
+		getFragmentManager()
+				.beginTransaction()
+				.replace(R.id.content_frame,
+						new DisplayFlatFragment(flatNumber),
+						"display_flat_info").addToBackStack(null).commit();
+	}
+
+	@Override
+	public void gotoFlatInfoFragment() {
+		getFragmentManager()
+				.beginTransaction()
+				.replace(R.id.content_frame, new FlatInfoFragment(), "flatinfo")
+				.addToBackStack(null).commit();
+
 	}
 }

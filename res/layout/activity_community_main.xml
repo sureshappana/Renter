@@ -3,23 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/mVe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button1" />
-
-        <FrameLayout
-            android:id="@+id/content_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
     <ListView
         android:id="@+id/left_drawer"

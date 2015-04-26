@@ -1,0 +1,173 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="18dp"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <EditText
+        android:id="@+id/editTextTenantTicketAddTitle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/input_border"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Add a title" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editTextTenantTicketAddDescription"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/editTextTenantTicketAddTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_border"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Add a description"
+        android:inputType="textMultiLine" />
+
+    <LinearLayout
+        android:id="@+id/LayoutTenantTicketAddRadioGroups"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextTenantTicketAddDescription"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_border"
+        android:padding="6dp" >
+
+        <LinearLayout
+            android:id="@+id/LayoutTenantTicketAddPriority"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textViewTenantTicketAddPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Priority"
+                android:textSize="20sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupTenantTicketAddPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/radio0TenantTicketAddPriority"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="High" />
+
+                <RadioButton
+                    android:id="@+id/radio1TenantTicketAddPriority"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium" />
+
+                <RadioButton
+                    android:id="@+id/radio2TenantTicketAddPriority"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Low" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LayoutTenantTicketAddStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textViewTenantTicketAddStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:textSize="20sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupTenantTicketAddStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/radio0TenantTicketAddStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Open" />
+
+                <RadioButton
+                    android:id="@+id/radio1TenantTicketAddStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="In Progress" />
+
+                <RadioButton
+                    android:id="@+id/radio2TenantTicketAddStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Closed" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTenantTicketAddDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LayoutTenantTicketAddRadioGroups"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_border"
+        android:orientation="horizontal"
+        android:padding="6dp" >
+
+        <TextView
+            android:id="@+id/textViewTenantAddTicketStartDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:lines="2"
+            android:padding="6dp"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="fill_parent"
+            android:background="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/textViewTenantAddTicketEndDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:lines="2"
+            android:padding="6dp"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonSubmitTenantTicketAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutTenantTicketAddDate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Submit" />
+
+</RelativeLayout>

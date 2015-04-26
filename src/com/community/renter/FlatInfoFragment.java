@@ -44,7 +44,7 @@ public class FlatInfoFragment extends Fragment {
 		return view;
 	}
 	public interface OnFragmentInteractionListener{
-		public void gotoAddFlatFragment();
+		public void gotoFlatFragment();
 		public void flatSelected(String flatNumber);
 	}
 	
@@ -57,7 +57,7 @@ public class FlatInfoFragment extends Fragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
         case R.id.action_addFlat:     
-        	mListener.gotoAddFlatFragment();
+        	mListener.gotoFlatFragment();
             return true;
         default:
             return super.onOptionsItemSelected(item);

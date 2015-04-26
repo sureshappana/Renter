@@ -44,9 +44,7 @@ public class LoginActivity extends Activity {
 
 					@Override
 					public void onClick(View v) {
-						CommonFunctions.startProgressDialog(
-								LoginActivity.this,
-								"Logging in. Please wait...");
+						
 						final String email = ((EditText) findViewById(R.id.mUserName))
 								.getText().toString();
 						String password = ((EditText) findViewById(R.id.mPassword))
@@ -54,7 +52,9 @@ public class LoginActivity extends Activity {
 
 						if (!TextUtils.isEmpty(email)
 								&& !TextUtils.isEmpty(password)) {
-
+							CommonFunctions.startProgressDialog(
+									LoginActivity.this,
+									"Logging in. Please wait...");
 							ParseUser.logInInBackground(email, password,
 									new LogInCallback() {
 										public void done(ParseUser user,

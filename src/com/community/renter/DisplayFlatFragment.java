@@ -47,7 +47,7 @@ public class DisplayFlatFragment extends Fragment {
 			ParseQuery<ParseObject> query = ParseQuery
 					.getQuery(CommonFunctions.FLATINFO_OBJECT);
 			query.whereEqualTo("flatNumber", flatNumber);
-			query.whereEqualTo("isMainTenant", true);
+			//query.whereEqualTo("isMainTenant", true);
 			query.whereEqualTo("communityObject", ParseUser.getCurrentUser()
 					.getObjectId());
 			query.findInBackground(new FindCallback<ParseObject>() {

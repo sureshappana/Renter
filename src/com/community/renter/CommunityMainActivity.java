@@ -29,7 +29,7 @@ public class CommunityMainActivity extends Activity implements
 		TicketListFragment.OnFragmentInteractionListener,
 		FlatInfoFragment.OnFragmentInteractionListener,
 		DisplayFlatFragment.OnFragmentInteractionListener,
-		AddFlatFragment.OnFragmentInteractionListener {
+		FlatFragment.OnFragmentInteractionListener {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -173,9 +173,9 @@ public class CommunityMainActivity extends Activity implements
 	}
 
 	@Override
-	public void gotoAddFlatFragment() {
+	public void gotoFlatFragment() {
 		getFragmentManager().beginTransaction()
-				.replace(R.id.content_frame, new AddFlatFragment(), "add_flat")
+				.replace(R.id.content_frame, new FlatFragment(), "add_flat")
 				.addToBackStack(null).commit();
 
 	}

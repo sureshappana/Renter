@@ -9,7 +9,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -24,6 +23,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.parse.ParseUser;
 
 public class TenantHomePageActivity extends Activity implements
 		TicketListFragment.OnFragmentInteractionListener {
@@ -156,7 +157,11 @@ public class TenantHomePageActivity extends Activity implements
 			startActivity(intent);
 			finish();
 		default:
+			break;
 		}
+		mDrawerList.setItemChecked(position, true);
+		setTitle(mCommunityTitles[position]);
+		mDrawerLayout.closeDrawer(mDrawerList);
 	}
 
 	@Override

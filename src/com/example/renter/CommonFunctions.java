@@ -50,5 +50,6 @@ public class CommonFunctions {
 	public static class FlatInfoTableClass{
 		public static String TENANT_MAIL_ID = "tenantMailId";
 		public static String TENANT_FLAT_NO = "flatNumber";
+		public static String TENANT_IS_OCCUPIED = "isOccupied";
 	}
 }

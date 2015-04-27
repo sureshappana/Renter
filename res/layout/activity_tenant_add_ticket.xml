@@ -15,7 +15,7 @@
         android:background="@drawable/input_border"
         android:ems="10"
         android:gravity="center"
-        android:hint="Add a title" >
+        android:hint="@string/mTicketTitleHint" >
 
         <requestFocus />
     </EditText>
@@ -30,11 +30,12 @@
         android:background="@drawable/input_border"
         android:ems="10"
         android:gravity="center"
-        android:hint="Add a description"
+        android:hint="@string/mTicketDescriptionHint"
         android:inputType="textMultiLine" />
 
     <LinearLayout
         android:id="@+id/LayoutTenantTicketAddRadioGroups"
+        android:baselineAligned="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editTextTenantTicketAddDescription"
@@ -54,7 +55,7 @@
                 android:id="@+id/textViewTenantTicketAddPriority"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Priority"
+                android:text="@string/mTicketPriorityMainText"
                 android:textSize="20sp" />
 
             <RadioGroup
@@ -67,19 +68,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="High" />
+                    android:text="@string/mTicketPriorityHigh" />
 
                 <RadioButton
                     android:id="@+id/radio1TenantTicketAddPriority"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Medium" />
+                    android:text="@string/mTicketPriorityMedium" />
 
                 <RadioButton
                     android:id="@+id/radio2TenantTicketAddPriority"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Low" />
+                    android:text="@string/mTicketPriorityLow" />
             </RadioGroup>
         </LinearLayout>
 
@@ -95,7 +96,7 @@
                 android:id="@+id/textViewTenantTicketAddStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status"
+                android:text="@string/mTicketStatusMainText"
                 android:textSize="20sp" />
 
             <RadioGroup
@@ -108,19 +109,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="Open" />
+                    android:text="@string/mTicketStatusOpen" />
 
                 <RadioButton
                     android:id="@+id/radio1TenantTicketAddStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="In Progress" />
+                    android:text="@string/mTicketStatusInProgress" />
 
                 <RadioButton
                     android:id="@+id/radio2TenantTicketAddStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Closed" />
+                    android:text="@string/mTicketStatusClosed" />
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
@@ -168,6 +169,6 @@
         android:layout_below="@+id/linearLayoutTenantTicketAddDate"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Submit" />
+        android:text="@string/mTicketSubmitButton" />
 
 </RelativeLayout>

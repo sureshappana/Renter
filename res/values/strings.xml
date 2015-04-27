@@ -42,6 +42,25 @@
 	<string name="mTenantContactNumber">Contact Number</string>
 	<string name="mTenantSingUpButton">Sign Up</string>	
 	<string name="mCommunityNameTitle">Community Name</string>
+	<string name="mNotificationMainTitle">Notifications</string>
+	<string name="mTicketMainTitle">All Tickets</string>
+	<string name="mNotificationSendString">Send a notification to: </string>
+	<string name="mNotificationRadio0">All tenants</string>
+	<string name="mNotificationRadio1">Select recipients</string>
+	<string name="mSendButton">Send</string>
+	<string name="mTicketTitleHint">Add a title</string>
+	<string name="mTicketDescriptionHint">Add a description</string>
+	<string name="mTicketPriorityMainText">Priority</string>
+	<string name="mTicketPriorityLow">Low</string>
+	<string name="mTicketPriorityMedium">Medium</string>
+	<string name="mTicketPriorityHigh">High</string>
+	<string name="mTicketStatusMainText">Status</string>
+	<string name="mTicketStatusOpen">Open</string>
+	<string name="mTicketStatusInProgress">In Progress</string>
+	<string name="mTicketStatusClosed">Closed</string>
+	<string name="mTicketSubmitButton">Publish</string>
+	<string name="mNotificationHint">Add a notification</string>
+	<string name="mNotificationRecipientsTitle">The following flats will receive the notification: </string>
 	
     <string-array name="CommunityDrawerOptions_array">
         <item>Tickets</item>

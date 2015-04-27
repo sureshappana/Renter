@@ -1,14 +1,88 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context="com.community.renter.NotificationsFragment" >
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
+    <LinearLayout
+        android:id="@+id/LinearLayoutNotificationAdmin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="you reached the notifications" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="6dp" >
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/textViewNotificationMainFragment"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="@string/mNotificationMainTitle"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewNotificationSendString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/mNotificationSendString"
+            android:textSize="18sp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupNotificationSendTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp" >
+
+            <RadioButton
+                android:id="@+id/radio0NotificationSendToAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/mNotificationRadio0" />
+
+            <RadioButton
+                android:id="@+id/radio1NotificationSendToSpecific"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mNotificationRadio1" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/editTextNotificationText"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/input_border"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/mNotificationHint"
+            android:inputType="textMultiLine" />
+
+        <TextView
+            android:id="@+id/textViewNotificationRecipientsTitleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/mNotificationRecipientsTitle"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textViewNotificationRecipients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/buttonNotificationSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/mSendButton" />
+    </LinearLayout>
+
+</ScrollView>

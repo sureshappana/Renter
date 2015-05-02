@@ -1,8 +1,10 @@
 package com.example.renter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,6 +26,7 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+
 
 		ParseUser currentUser = ParseUser.getCurrentUser();
 		if (currentUser != null) {
@@ -104,6 +107,11 @@ public class LoginActivity extends Activity {
 															"Email Verified",
 															Toast.LENGTH_SHORT)
 															.show();
+													ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+													installation.put("user",ParseUser.getCurrentUser());
+													installation.put("channels", new ArrayList<String>());
+													installation.saveInBackground();
+													
 													if (ParseUser
 															.getCurrentUser()
 															.get(CommonFunctions.USER_TABLE_ISCOMMUNITY)

@@ -1,10 +1,13 @@
 package com.example.renter;
 
-import com.parse.ParseUser;
-
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import com.parse.ParseUser;
 
 public class CommonFunctions {
 	
@@ -80,5 +83,13 @@ public class CommonFunctions {
 		public static String TENANT_FLAT_NO = "flatNumber";
 		public static String TENANT_IS_OCCUPIED = "isOccupied";
 		public static String TENANT_NAME = "tenantName";
+	}
+	
+	public static void hideKeyboard(Activity activity) {   
+	    View view = activity.getCurrentFocus();
+	    if (view != null) {
+	        InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+	        inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+	    }
 	}
 }

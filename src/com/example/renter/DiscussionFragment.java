@@ -3,15 +3,25 @@ package com.example.renter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -20,6 +30,7 @@ import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SendCallback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,71 +61,119 @@ public class DiscussionFragment extends Fragment {
 
 		message = (EditText) view.findViewById(R.id.messageEditText);
 		sendImage = (ImageView) view.findViewById(R.id.sendImage);
+		message.setOnKeyListener(new OnKeyListener() {
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if ((event.getAction() == KeyEvent.ACTION_DOWN)
+						&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
+					sendMessage();
+
+					return true;
+				}
+				return false;
+			}
+		});
+		message.setOnEditorActionListener(new OnEditorActionListener() {
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				if (event == null) {
+					if (actionId == EditorInfo.IME_ACTION_DONE
+							|| actionId == EditorInfo.IME_ACTION_NEXT
+							|| (actionId == EditorInfo.IME_NULL && event
+									.getAction() == KeyEvent.ACTION_DOWN))
+						;
+					sendMessage();
+				}
+				return false;
+			}
+		});
 		getTenantDetails();
 		sendImage.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// if (!flag)
-				// getTenantDetails();
-				if (message.getText().toString().length() > 0
-						&& tenantApartnmentNo != null) {
-					ParseObject mDiscussionObject = new ParseObject(
-							CommonFunctions.MESSAGE_TABLE);
-					mDiscussionObject
-							.put(CommonFunctions.MESSAGE_TABLE_COMMUNITY_ID,
-									CommonFunctions
-											.trimString(ParseUser
-													.getCurrentUser()
-													.get(CommonFunctions.USER_TABLE_COMMUNITYID)
-													.toString()));
-
-					mDiscussionObject.put(
-							CommonFunctions.MESSAGE_TABLE_APARTMENT_NO,
-							tenantApartnmentNo);
-					mDiscussionObject.put(
-							CommonFunctions.MESSAGE_TABLE_USERNAME, tenantName);
-					mDiscussionObject.put(
-							CommonFunctions.MESSAGE_TABLE_MESSAGE_CONTENT,
-							message.getText().toString());
-					mDiscussionObject.saveInBackground();
-
-					String mCommunityMessagesPushMessageChannel = null;
-					if (ParseUser.getCurrentUser()
-							.get(CommonFunctions.USER_TABLE_ISCOMMUNITY)
-							.toString().equals("true")) {
-						mCommunityMessagesPushMessageChannel = "Messages_"
-								+ CommonFunctions.trimString(ParseUser
-										.getCurrentUser().getObjectId());
-					} else {
-
-						mCommunityMessagesPushMessageChannel = "Messages_"
-								+ CommonFunctions
-										.trimString(ParseUser
-												.getCurrentUser()
-												.get(CommonFunctions.USER_TABLE_COMMUNITYID)
-												.toString());
-					}
-					String currentInstallationId = ParseInstallation
-							.getCurrentInstallation().getInstallationId();
-					ParseQuery pushQuery = ParseInstallation.getQuery();
-					pushQuery.whereNotEqualTo("installationId",
-							currentInstallationId);
-					ParsePush push = new ParsePush();
-					push.setQuery(pushQuery);
-					push.setChannel(mCommunityMessagesPushMessageChannel);
-					push.setMessage(message.getText().toString());
-					push.sendInBackground();
-
-					message.setText("");
-					updateListView();
-				}
-
+				sendMessage();
 			}
 
 		});
 
 		return view;
+	}
+
+	private void sendMessage() {
+
+		// if (!flag)
+		// getTenantDetails();
+		if (message.getText().toString().length() > 0
+				&& tenantApartnmentNo != null) {
+			ParseObject mDiscussionObject = new ParseObject(
+					CommonFunctions.MESSAGE_TABLE);
+			mDiscussionObject.put(
+					CommonFunctions.MESSAGE_TABLE_COMMUNITY_ID,
+					CommonFunctions.trimString(ParseUser.getCurrentUser()
+							.get(CommonFunctions.USER_TABLE_COMMUNITYID)
+							.toString()));
+
+			mDiscussionObject.put(CommonFunctions.MESSAGE_TABLE_APARTMENT_NO,
+					tenantApartnmentNo);
+			mDiscussionObject.put(CommonFunctions.MESSAGE_TABLE_USERNAME,
+					tenantName);
+			mDiscussionObject.put(
+					CommonFunctions.MESSAGE_TABLE_MESSAGE_CONTENT, message
+							.getText().toString());
+			mDiscussionObject.saveInBackground();
+
+			String mCommunityMessagesPushMessageChannel = null;
+			if (ParseUser.getCurrentUser()
+					.get(CommonFunctions.USER_TABLE_ISCOMMUNITY).toString()
+					.equals("true")) {
+				mCommunityMessagesPushMessageChannel = "Messages_"
+						+ CommonFunctions.trimString(ParseUser.getCurrentUser()
+								.getObjectId());
+			} else {
+
+				mCommunityMessagesPushMessageChannel = "Messages_"
+						+ CommonFunctions.trimString(ParseUser.getCurrentUser()
+								.get(CommonFunctions.USER_TABLE_COMMUNITYID)
+								.toString());
+			}
+			updateListView();
+			String currentInstallationId = ParseInstallation
+					.getCurrentInstallation().getInstallationId();
+			ParseQuery pushQuery = ParseInstallation.getQuery();
+			pushQuery.whereNotEqualTo("user", ParseUser.getCurrentUser());
+			pushQuery.whereEqualTo("channels",
+					mCommunityMessagesPushMessageChannel);
+			JSONObject data = null;
+			try {
+				data = new JSONObject("{\"alert\": \""+ message.getText()+"\",\"title\": \""+ tenantName +"\"}");
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			ParsePush push = new ParsePush();
+			// push.setChannel(mCommunityMessagesPushMessageChannel);
+			push.setQuery(pushQuery);
+			//push.setMessage(message.getText().toString());
+			push.setData(data);
+			push.sendInBackground(new SendCallback() {
+
+				@Override
+				public void done(ParseException e) {
+					if (e == null) {
+						Log.d("push", "success");
+					} else {
+						Log.d("push", "failed:" + e.toString());
+					}
+
+				}
+			});
+
+			message.setText("");
+
+		}
+
 	}
 
 	private void getTenantDetails() {
@@ -150,15 +209,27 @@ public class DiscussionFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 	}
 
+	
 	private void updateListView() {
 		messageList.clear();
+		CommonFunctions.hideKeyboard(getActivity());
 		ParseQuery<ParseObject> queryRetriveMessage = ParseQuery
 				.getQuery(CommonFunctions.MESSAGE_TABLE);
-		queryRetriveMessage.whereEqualTo(
-				CommonFunctions.MESSAGE_TABLE_COMMUNITY_ID, CommonFunctions
-						.trimString(ParseUser.getCurrentUser()
-								.get(CommonFunctions.USER_TABLE_COMMUNITYID)
-								.toString()));
+		if (ParseUser.getCurrentUser().getBoolean(
+				CommonFunctions.USER_TABLE_ISCOMMUNITY)) {
+			queryRetriveMessage.whereEqualTo(
+					CommonFunctions.MESSAGE_TABLE_COMMUNITY_ID, CommonFunctions
+							.trimString(ParseUser.getCurrentUser().getObjectId()
+									.toString()));
+		
+		} else {
+			queryRetriveMessage.whereEqualTo(
+					CommonFunctions.MESSAGE_TABLE_COMMUNITY_ID, CommonFunctions
+							.trimString(ParseUser.getCurrentUser()
+									.get(CommonFunctions.USER_TABLE_COMMUNITYID)
+									.toString()));
+		
+		}
 		queryRetriveMessage
 				.orderByAscending(CommonFunctions.MESSAGE_TABLE_UPDATED_AT);
 		queryRetriveMessage.findInBackground(new FindCallback<ParseObject>() {

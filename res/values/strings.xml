@@ -118,4 +118,6 @@
     <string name="pm_cc_trigger_btn_default">Pay</string>
     
     <string name="pm_emptyMSG">Field cannot be empty</string>
+    
+    <string name="service_name">NotificationAccessibilityService</string>
 </resources>

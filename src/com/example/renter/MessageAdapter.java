@@ -33,7 +33,9 @@ public class MessageAdapter extends ArrayAdapter<Message>{
 		if(messageList != null && messageList.size() > 0){
 		
 			((TextView)convertView.findViewById(R.id.message)).setText(messageList.get(position).getMessage().toString());
-			((TextView)convertView.findViewById(R.id.name)).setText(messageList.get(position).getName().toString());
+			((TextView)convertView.findViewById(R.id.name)).setText(messageList.get(position).getName().toString()+" ("+messageList.get(position).getApt_no()+") ");
+			String[] dateString = messageList.get(position).getTime().toString().split(" ");
+			((TextView)convertView.findViewById(R.id.time)).setText(dateString[1]+" "+dateString[2]+" "+dateString[3]);
 		}
 		return convertView;
 	}

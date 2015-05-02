@@ -10,7 +10,8 @@
         android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:padding="5dp" >
 
         <ListView
             android:id="@+id/messagesListView"
@@ -25,22 +26,24 @@
 
         <LinearLayout
             android:id="@+id/messageLinearLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" >
+            android:layout_alignParentBottom="true" 
+            >
 
             <EditText
                 android:id="@+id/messageEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="9"
+                android:layout_height="40dp"
+                android:layout_weight="8.99"
                 android:background="@drawable/input_border"
-                android:ems="10" />
+                android:ems="10" 
+                />
 
             <ImageView
                 android:id="@+id/sendImage"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:src="@drawable/send" />
 

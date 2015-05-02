@@ -8,7 +8,6 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
 
-   
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -26,7 +25,6 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.example.renter.permission.C2D_MESSAGE" />
-    
 
     <application
         android:name=".ParseApplication"
@@ -69,8 +67,7 @@
             android:enabled="true"
             android:exported="false" >
         </service>
-        
-         <service android:name="com.parse.PushService" />
+        <service android:name="com.parse.PushService" />
 
         <receiver android:name="com.parse.ParseBroadcastReceiver" >
             <intent-filter>
@@ -98,7 +95,6 @@
                 <category android:name="com.example.renter" />
             </intent-filter>
         </receiver>
-        
     </application>
 
 </manifest>

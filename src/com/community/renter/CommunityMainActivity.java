@@ -1,5 +1,7 @@
 package com.community.renter;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -24,6 +26,7 @@ import com.example.renter.RenterConstantVariables;
 import com.example.renter.Ticket;
 import com.example.renter.TicketDetailsFragment;
 import com.example.renter.TicketListFragment;
+import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
 public class CommunityMainActivity extends Activity implements
@@ -141,6 +144,10 @@ public class CommunityMainActivity extends Activity implements
 			
 		case 5: // Signout fragment break; default:
 			ParseUser.logOut();
+			ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+			installation.put("channels", new ArrayList<String>());
+			installation.saveInBackground();
+
 			Intent intent = new Intent(CommunityMainActivity.this,
 					LoginActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP

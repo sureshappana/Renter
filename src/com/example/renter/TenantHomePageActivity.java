@@ -1,5 +1,6 @@
 package com.example.renter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.community.renter.CommunityMainActivity;
@@ -8,6 +9,7 @@ import com.community.renter.SettingsFragment;
 import com.community.renter.TicketsFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -190,6 +192,10 @@ public class TenantHomePageActivity extends Activity implements
 			break;
 		case 5:
 			ParseUser.logOut();
+			ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+			installation.put("channels", new ArrayList<String>());
+			installation.saveInBackground();
+
 			Intent intent = new Intent(TenantHomePageActivity.this,
 					LoginActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP

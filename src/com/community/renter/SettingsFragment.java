@@ -2,25 +2,23 @@ package com.community.renter;
 
 import java.util.List;
 
-import com.example.renter.CommonFunctions;
-import com.example.renter.R;
-import com.example.renter.R.layout;
-import com.google.gson.FieldNamingStrategy;
-import com.parse.FindCallback;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.renter.CommonFunctions;
+import com.example.renter.R;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 public class SettingsFragment extends Fragment {
 

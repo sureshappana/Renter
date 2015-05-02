@@ -15,7 +15,9 @@ import android.widget.ListView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -45,6 +47,7 @@ public class DiscussionFragment extends Fragment {
 				false);
 
 		messagesListView = (ListView) view.findViewById(R.id.messagesListView);
+
 		message = (EditText) view.findViewById(R.id.messageEditText);
 		sendImage = (ImageView) view.findViewById(R.id.sendImage);
 		getTenantDetails();
@@ -74,7 +77,35 @@ public class DiscussionFragment extends Fragment {
 					mDiscussionObject.put(
 							CommonFunctions.MESSAGE_TABLE_MESSAGE_CONTENT,
 							message.getText().toString());
-					mDiscussionObject.saveInBackground();	
+					mDiscussionObject.saveInBackground();
+
+					String mCommunityMessagesPushMessageChannel = null;
+					if (ParseUser.getCurrentUser()
+							.get(CommonFunctions.USER_TABLE_ISCOMMUNITY)
+							.toString().equals("true")) {
+						mCommunityMessagesPushMessageChannel = "Messages_"
+								+ CommonFunctions.trimString(ParseUser
+										.getCurrentUser().getObjectId());
+					} else {
+
+						mCommunityMessagesPushMessageChannel = "Messages_"
+								+ CommonFunctions
+										.trimString(ParseUser
+												.getCurrentUser()
+												.get(CommonFunctions.USER_TABLE_COMMUNITYID)
+												.toString());
+					}
+					String currentInstallationId = ParseInstallation
+							.getCurrentInstallation().getInstallationId();
+					ParseQuery pushQuery = ParseInstallation.getQuery();
+					pushQuery.whereNotEqualTo("installationId",
+							currentInstallationId);
+					ParsePush push = new ParsePush();
+					push.setQuery(pushQuery);
+					push.setChannel(mCommunityMessagesPushMessageChannel);
+					push.setMessage(message.getText().toString());
+					push.sendInBackground();
+
 					message.setText("");
 					updateListView();
 				}
@@ -128,7 +159,8 @@ public class DiscussionFragment extends Fragment {
 						.trimString(ParseUser.getCurrentUser()
 								.get(CommonFunctions.USER_TABLE_COMMUNITYID)
 								.toString()));
-		queryRetriveMessage.orderByAscending(CommonFunctions.MESSAGE_TABLE_UPDATED_AT);
+		queryRetriveMessage
+				.orderByAscending(CommonFunctions.MESSAGE_TABLE_UPDATED_AT);
 		queryRetriveMessage.findInBackground(new FindCallback<ParseObject>() {
 
 			@Override
@@ -151,20 +183,20 @@ public class DiscussionFragment extends Fragment {
 											.trimString(messageObj
 													.get(CommonFunctions.MESSAGE_TABLE_APARTMENT_NO)
 													.toString()),
-									CommonFunctions
-											.trimString(messageObj
-													.getUpdatedAt()
-													.toString())
+									CommonFunctions.trimString(messageObj
+											.getUpdatedAt().toString())
 
 							));
-							
+
 						}
 
 						MessageAdapter adapter = new MessageAdapter(
 								getActivity(), R.layout.chat_list_row,
 								messageList);
 						messagesListView.setAdapter(adapter);
-						
+						// messagesListView.smoothScrollToPosition(adapter.getCount()
+						// - 1);
+						messagesListView.setSelection(adapter.getCount() - 1);
 					}
 				} else {
 					Log.d("renter", "Error in retreiving the messages");

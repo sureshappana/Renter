@@ -19,7 +19,8 @@
             android:layout_above="@+id/messageLinearLayout"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true" >
+            android:layout_alignParentTop="true" 
+            >
         </ListView>
 
         <LinearLayout

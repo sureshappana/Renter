@@ -3,12 +3,15 @@ package com.example.renter;
 import java.util.List;
 
 import com.community.renter.CommunityMainActivity;
+import com.community.renter.PaymentFragment;
+import com.community.renter.SettingsFragment;
 import com.community.renter.TicketsFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -165,7 +168,7 @@ public class TenantHomePageActivity extends Activity implements
 			getFragmentManager()
 					.beginTransaction()
 					.replace(R.id.content_frameTenant,
-							new TicketListFragment(),
+							new PaymentFragment(),
 							RenterConstantVariables.TICKET_LIST_FRAGMENT)
 					.commit();
 			break;
@@ -175,6 +178,14 @@ public class TenantHomePageActivity extends Activity implements
 					.replace(R.id.content_frameTenant,
 							new DiscussionFragment(),
 							RenterConstantVariables.DISCUSSION_FRAGMENT)
+					.commit();
+			break;
+		case 4:
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.content_frameTenant,
+							new SettingsFragment(),
+							RenterConstantVariables.SETTINGS_FRAGMENT)
 					.commit();
 			break;
 		case 5:

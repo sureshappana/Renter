@@ -33,6 +33,7 @@ public class TicketListFragment extends Fragment {
 	ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 	ListView mticketListView;
 	String ticketListId,ticketListTitle,ticketListDescription,ticketListStatus,ticketListPriority,ticketListApartmentNo;
+	String objId;
 	Date ticketStartDate,ticketEndDate;
 
 	@Override
@@ -132,8 +133,11 @@ public class TicketListFragment extends Fragment {
 		queryRetriveTicket.whereEqualTo(RenterConstantVariables.TICKETTABLE_TENANT_ID, 
 				CommonFunctions.UserTableClass.mCurrentUser);
 		}
-		else{
-		queryRetriveTicket.whereExists(RenterConstantVariables.TICKETTABLE_STATUS);
+		else{// Admin retrieving tickets using community id
+		
+		objId =  (String)ParseUser.getCurrentUser().getObjectId();
+		queryRetriveTicket.whereEqualTo(RenterConstantVariables.TICKETTABLE_COMMUNITY_ID, 
+				objId);
 		}
 		queryRetriveTicket.orderByDescending("updatedAt");
 		queryRetriveTicket.findInBackground(new FindCallback<ParseObject>() {
@@ -167,6 +171,7 @@ public class TicketListFragment extends Fragment {
 					ticket.setmPriority(ticketListPriority);
 					tickets.add(ticket);
 				}
+				
 				mticketListView = (ListView) getActivity().findViewById(R.id.listViewTicket);
 				mTicketAdapter = new TicketAdapter(getActivity(), tickets);
 				mticketListView.setAdapter(mTicketAdapter);
@@ -190,7 +195,9 @@ public class TicketListFragment extends Fragment {
 					CommonFunctions.UserTableClass.mCurrentUser);
 			}
 			else{
-			queryRetriveTicket.whereExists(RenterConstantVariables.TICKETTABLE_STATUS);
+				objId =  (String)ParseUser.getCurrentUser().getObjectId();
+				queryRetriveTicket.whereEqualTo(RenterConstantVariables.TICKETTABLE_COMMUNITY_ID, 
+						objId);
 			}
 		queryRetriveTicket.orderByDescending(RenterConstantVariables.TICKETTABLE_STATUS);
 		queryRetriveTicket.findInBackground(new FindCallback<ParseObject>() {

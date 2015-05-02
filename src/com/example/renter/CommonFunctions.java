@@ -71,11 +71,14 @@ public class CommonFunctions {
 		}
 		public static String USERNAME = "username";
 		public static String IS_COMMUNITY = "isCommunity";
-		
+		public static String OBJECT_ID = "objectId";
+		public static String COMMUNITY_NAME = "CommunityName";
+		public static String CONTACT_NUMBER = "ContactNumber";
 	}
 	public static class FlatInfoTableClass{
 		public static String TENANT_MAIL_ID = "tenantMailId";
 		public static String TENANT_FLAT_NO = "flatNumber";
 		public static String TENANT_IS_OCCUPIED = "isOccupied";
+		public static String TENANT_NAME = "tenantName";
 	}
 }

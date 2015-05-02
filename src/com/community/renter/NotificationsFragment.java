@@ -10,6 +10,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import android.os.Bundle;
 import android.app.AlertDialog;
@@ -41,6 +42,8 @@ public class NotificationsFragment extends Fragment {
 				container, false);
 		
 		ParseQuery<ParseObject> mQueryRetrieveFlatMembers = ParseQuery.getQuery(CommonFunctions.FLATINFO_TABLE);
+		mQueryRetrieveFlatMembers.whereEqualTo(CommonFunctions.trimString(CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT), 
+						(String)ParseUser.getCurrentUser().getObjectId());
 		mQueryRetrieveFlatMembers.whereEqualTo(CommonFunctions.FlatInfoTableClass.TENANT_IS_OCCUPIED, true);
 		mQueryRetrieveFlatMembers.findInBackground(new FindCallback<ParseObject>() {
 			

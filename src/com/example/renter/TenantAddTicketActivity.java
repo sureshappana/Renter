@@ -54,7 +54,7 @@ public class TenantAddTicketActivity extends Activity {
 		
 		// add ticket code
 		if(getIntent().getExtras().get(RenterConstantVariables.ADD_TICKET)!=null){
-			
+			mSubmit.setText(getResources().getString(R.string.mTicketSubmitButtonAdd));
 			mStatusGroup.setVisibility(View.INVISIBLE);
 			((TextView) findViewById(R.id.textViewTenantTicketAddStatus)).setVisibility(View.INVISIBLE);
 			mSubmit.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +122,7 @@ public class TenantAddTicketActivity extends Activity {
 		if(getIntent().getExtras().get(RenterConstantVariables.EDIT_TICKET)!=null){
 			//if tenant login, make statusTextView and RadioGroup invisible, closedate textview clickable/focussable
 			
+			mSubmit.setText(getResources().getString(R.string.mTicketSubmitButtonEdit));
 			if(!CommonFunctions.UserTableClass.mCurrentUserIsAdmin){
 				//make end date not clickable
 				mStatusGroup.setVisibility(View.INVISIBLE);

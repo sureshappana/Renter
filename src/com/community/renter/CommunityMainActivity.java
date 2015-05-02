@@ -135,11 +135,11 @@ public class CommunityMainActivity extends Activity implements
 
 			getFragmentManager()
 					.beginTransaction()
-					.replace(R.id.content_frame, new PaymentFragment(),
+					.replace(R.id.content_frame, new SettingsFragment(),
 							"settings").addToBackStack(null).commit();
 			break;
 			
-		case 6: // Signout fragment break; default:
+		case 5: // Signout fragment break; default:
 			ParseUser.logOut();
 			Intent intent = new Intent(CommunityMainActivity.this,
 					LoginActivity.class);

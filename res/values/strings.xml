@@ -58,20 +58,26 @@
 	<string name="mTicketStatusOpen">Open</string>
 	<string name="mTicketStatusInProgress">In Progress</string>
 	<string name="mTicketStatusClosed">Closed</string>
-	<string name="mTicketSubmitButton">Publish</string>
+	<string name="mTicketSubmitButtonEdit">Save changes</string>
+	<string name="mTicketSubmitButtonAdd">Raise Ticket</string>
 	<string name="mNotificationHint">Add a notification</string>
 	<string name="mNotificationRecipientsTitle">The following flats will receive the notification: </string>
 	<string name="mFacilityName">Facility Name</string>
 	<string name="mFacilityTotal">Total</string>
 	<string name="mFacilityOccupied">Occupied</string>
 	<string name="pm_wrongAmountFomat">Entered amount is not valid</string>
+	<string name="mSettingsHeading">Logged in as</string>
+	<string name="mSettingsNameTitle">Name</string>
+	<string name="mSettingsContactNumberTitle">Contact Number</string>
+	<string name="mSettingsDefaultCurrencyTitle">Default Currency</string>
+	<string name="mSettingsSaveButtonTitle">Save Changes</string>
+	
 	
     <string-array name="CommunityDrawerOptions_array">
         <item>Tickets</item>
         <item>Flats</item>
         <item>Facilities</item>
         <item>Notifications</item>
-        <item>Payments</item>
         <item>Settings</item>
         <item>Sign Out</item>
     </string-array>

@@ -31,6 +31,7 @@ public class CommonFunctions {
 	public static final String USER_TABLE = "_User";
 	public static final String USER_TABLE_COMMUNITYID = "CommunityId";
 	public static final String USER_TABLE_ISCOMMUNITY = "isCommunity";
+	public static final String USER_TABLE_USERNAME = "username";
 	
 	public static final String MESSAGE_TABLE = "Messages";
 	public static final String MESSAGE_TABLE_COMMUNITY_ID = "CommunityId";

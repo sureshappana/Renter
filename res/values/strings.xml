@@ -33,46 +33,45 @@
     <string name="tenantNamehint">Tenant Name(Optional)</string>
     <string name="tenantMailIdhint">Tenant Mail Id(Optional)</string>
     <string name="tenantMailIdTitleTextView">Tenant Mail Id</string>
-	<string name="tenantNameTitleTextView">Tenant Name</string>
-	<string name="flatNumberTitleTextView">Flat Number</string>
-	<string name="mFlatNumberTitleTextView">Flat Number</string>
-	<string name="mTenantNameTitle">Name</string>
-	<string name="mTenantPassword">Password</string>
-	<string name="mTenantCPassword">Confirmation Password</string>
-	<string name="mTenantContactNumber">Contact Number</string>
-	<string name="mTenantSingUpButton">Sign Up</string>	
-	<string name="mCommunityNameTitle">Community Name</string>
-	<string name="mNotificationMainTitle">Notifications</string>
-	<string name="mTicketMainTitle">All Tickets</string>
-	<string name="mNotificationSendString">Send a notification to: </string>
-	<string name="mNotificationRadio0">All tenants</string>
-	<string name="mNotificationRadio1">Select recipients</string>
-	<string name="mSendButton">Send</string>
-	<string name="mTicketTitleHint">Add a title</string>
-	<string name="mTicketDescriptionHint">Add a description</string>
-	<string name="mTicketPriorityMainText">Priority</string>
-	<string name="mTicketPriorityLow">Low</string>
-	<string name="mTicketPriorityMedium">Medium</string>
-	<string name="mTicketPriorityHigh">High</string>
-	<string name="mTicketStatusMainText">Status</string>
-	<string name="mTicketStatusOpen">Open</string>
-	<string name="mTicketStatusInProgress">In Progress</string>
-	<string name="mTicketStatusClosed">Closed</string>
-	<string name="mTicketSubmitButtonEdit">Save changes</string>
-	<string name="mTicketSubmitButtonAdd">Raise Ticket</string>
-	<string name="mNotificationHint">Add a notification</string>
-	<string name="mNotificationRecipientsTitle">The following flats will receive the notification: </string>
-	<string name="mFacilityName">Facility Name</string>
-	<string name="mFacilityTotal">Total</string>
-	<string name="mFacilityOccupied">Occupied</string>
-	<string name="pm_wrongAmountFomat">Entered amount is not valid</string>
-	<string name="mSettingsHeading">Logged in as</string>
-	<string name="mSettingsNameTitle">Name</string>
-	<string name="mSettingsContactNumberTitle">Contact Number</string>
-	<string name="mSettingsDefaultCurrencyTitle">Default Currency</string>
-	<string name="mSettingsSaveButtonTitle">Save Changes</string>
-	
-	
+    <string name="tenantNameTitleTextView">Tenant Name</string>
+    <string name="flatNumberTitleTextView">Flat Number</string>
+    <string name="mFlatNumberTitleTextView">Flat Number</string>
+    <string name="mTenantNameTitle">Name</string>
+    <string name="mTenantPassword">Password</string>
+    <string name="mTenantCPassword">Confirmation Password</string>
+    <string name="mTenantContactNumber">Contact Number</string>
+    <string name="mTenantSingUpButton">Sign Up</string>
+    <string name="mCommunityNameTitle">Community Name</string>
+    <string name="mNotificationMainTitle">Notifications</string>
+    <string name="mTicketMainTitle">All Tickets</string>
+    <string name="mNotificationSendString">Send a notification to: </string>
+    <string name="mNotificationRadio0">All tenants</string>
+    <string name="mNotificationRadio1">Select recipients</string>
+    <string name="mSendButton">Send</string>
+    <string name="mTicketTitleHint">Add a title</string>
+    <string name="mTicketDescriptionHint">Add a description</string>
+    <string name="mTicketPriorityMainText">Priority</string>
+    <string name="mTicketPriorityLow">Low</string>
+    <string name="mTicketPriorityMedium">Medium</string>
+    <string name="mTicketPriorityHigh">High</string>
+    <string name="mTicketStatusMainText">Status</string>
+    <string name="mTicketStatusOpen">Open</string>
+    <string name="mTicketStatusInProgress">In Progress</string>
+    <string name="mTicketStatusClosed">Closed</string>
+    <string name="mTicketSubmitButtonEdit">Save changes</string>
+    <string name="mTicketSubmitButtonAdd">Raise Ticket</string>
+    <string name="mNotificationHint">Add a notification</string>
+    <string name="mNotificationRecipientsTitle">The following flats will receive the notification: </string>
+    <string name="mFacilityName">Facility Name</string>
+    <string name="mFacilityTotal">Total</string>
+    <string name="mFacilityOccupied">Occupied</string>
+    <string name="pm_wrongAmountFomat">Entered amount is not valid</string>
+    <string name="mSettingsHeading">Logged in as</string>
+    <string name="mSettingsNameTitle">Name</string>
+    <string name="mSettingsContactNumberTitle">Contact Number</string>
+    <string name="mSettingsDefaultCurrencyTitle">Default Currency</string>
+    <string name="mSettingsSaveButtonTitle">Save Changes</string>
+
     <string-array name="CommunityDrawerOptions_array">
         <item>Tickets</item>
         <item>Flats</item>
@@ -81,7 +80,6 @@
         <item>Settings</item>
         <item>Sign Out</item>
     </string-array>
-
     <string-array name="TenantDrawerOptions_array">
         <item>Tickets</item>
         <item>Facilities</item>
@@ -90,7 +88,6 @@
         <item>Settings</item>
         <item>Sign Out</item>
     </string-array>
-    
     <string-array name="Currecy_array">
         <item>USD</item>
         <item>EUR</item>
@@ -99,7 +96,7 @@
         <item>AFN</item>
         <item>ANG</item>
     </string-array>
-    
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="title_activity_tickets">TicketsActivity</string>
@@ -116,8 +113,6 @@
     <string name="pm_cc_holder_name_hint">Card holder</string>
     <string name="pm_cc_holder_name_label">Card holder</string>
     <string name="pm_cc_trigger_btn_default">Pay</string>
-    
     <string name="pm_emptyMSG">Field cannot be empty</string>
-    
-    <string name="service_name">NotificationAccessibilityService</string>
+
 </resources>

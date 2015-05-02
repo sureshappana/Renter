@@ -357,7 +357,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pm_emptyMSG=0x7f050054;
         public static final int pm_wrongAmountFomat=0x7f050040;
         public static final int postalAddress=0x7f050016;
-        public static final int service_name=0x7f050055;
         public static final int signUpBtn=0x7f050006;
         public static final int signUpSwitch_Community=0x7f05000e;
         public static final int signUpSwitch_on=0x7f05000d;

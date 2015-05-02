@@ -45,7 +45,7 @@ public class DisplayFlatFragment extends Fragment {
 		case R.id.action_deleteFlat:
 			CommonFunctions.startProgressDialog(getActivity(),"Deleting flat info.Please wait..." );
 			ParseQuery<ParseObject> query = ParseQuery
-					.getQuery(CommonFunctions.FLATINFO_OBJECT);
+					.getQuery(CommonFunctions.FLATINFO_TABLE);
 			query.whereEqualTo("flatNumber", flatNumber);
 			query.whereEqualTo("isMainTenant", true);
 			query.whereEqualTo("communityObject", ParseUser.getCurrentUser()
@@ -106,7 +106,7 @@ public class DisplayFlatFragment extends Fragment {
 				.setText(flatNumber);
 
 		ParseQuery<ParseObject> query = ParseQuery
-				.getQuery(CommonFunctions.FLATINFO_OBJECT);
+				.getQuery(CommonFunctions.FLATINFO_TABLE);
 		query.whereEqualTo("flatNumber", flatNumber);
 		query.whereEqualTo("isMainTenant", true);
 		query.whereEqualTo("communityObject", ParseUser.getCurrentUser()

@@ -10,10 +10,5 @@
         android:icon="@drawable/add"
         android:showAsAction="ifRoom|withText"
         android:title="@string/action_addFlat"/>
-    <item
-        android:id="@+id/action_editFacilility"
-        android:icon="@drawable/edit"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/action_addFlat"/>
 
 </menu>

@@ -16,6 +16,7 @@ import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -24,6 +25,7 @@ public class TenantSignUpActivity extends Fragment {
 
 	static ParseObject tenantObject = null;
 	static String mailId = null;
+	static String communityObject = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +61,7 @@ public class TenantSignUpActivity extends Fragment {
 								user.setEmail(mailId);
 								user.put("ContactNumber", Long.parseLong(contactNumber));
 								user.put("isCommunity", false);
+								user.put("CommunityId", communityObject);
 								try {
 									user.signUpInBackground(new SignUpCallback() {
 										@Override
@@ -71,6 +74,7 @@ public class TenantSignUpActivity extends Fragment {
 														.toastMessage(
 																getActivity().getApplicationContext(),
 																"A confirmation email sent you the specified email.");
+												
 												startActivity(new Intent(
 														view.getContext(),
 														LoginActivity.class));
@@ -112,9 +116,9 @@ public class TenantSignUpActivity extends Fragment {
 							CommonFunctions.startProgressDialog(getActivity(),
 									"Validating email");
 							ParseQuery<ParseObject> query = ParseQuery
-									.getQuery(CommonFunctions.FLATINFO_OBJECT);
+									.getQuery(CommonFunctions.FLATINFO_TABLE);
 							query.whereEqualTo("tenantMailId", mailId);
-							query.whereEqualTo("isMainTenant", true);
+							//query.whereEqualTo("isMainTenant", true);
 
 							query.findInBackground(new FindCallback<ParseObject>() {
 								public void done(List<ParseObject> appList,
@@ -146,8 +150,9 @@ public class TenantSignUpActivity extends Fragment {
 													.trimString(tenantObject
 															.get("flatNumber")
 															.toString()));
+											communityObject= CommonFunctions.trimString(tenantObject.get("communityObject").toString());
 											ParseQuery<ParseObject> query = ParseQuery
-													.getQuery(CommonFunctions.USER_OBJECT);
+													.getQuery(CommonFunctions.USER_TABLE);
 											// query.whereEqualTo("objectId",
 											// appList.get(0).get("communityObject").toString());
 											Log.d("renter",

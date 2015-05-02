@@ -25,4 +25,5 @@ public class RenterConstantVariables {
 	public static final String TICKETTABLE_APARTMENT_NO = "ApartmentNo";
 	public static final String EDIT_TICKET = "EditTicket";
 	public static final String ADD_TICKET = "AddTicket";
+	public static final String DISCUSSION_FRAGMENT = "DiscussionFragment";
 }

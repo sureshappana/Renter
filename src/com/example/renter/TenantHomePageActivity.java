@@ -29,7 +29,6 @@ import com.parse.ParseUser;
 public class TenantHomePageActivity extends Activity implements
 		TicketListFragment.OnFragmentInteractionListener {
 
-	
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -37,12 +36,12 @@ public class TenantHomePageActivity extends Activity implements
 	private CharSequence mTitle;
 	private String[] mCommunityTitles;
 	public static String mCurrentUserFlatNo;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tenant_home_page);
 
-		
 		CommonFunctions.UserTableClass.CurrentUserDetails();
 		mTitle = mDrawerTitle = getTitle();
 		mCommunityTitles = getResources().getStringArray(
@@ -74,22 +73,30 @@ public class TenantHomePageActivity extends Activity implements
 		if (savedInstanceState == null) {
 			selectItem(0);
 		}
-		
-		ParseQuery<ParseObject> mQueryRetrieveApartmentNo = ParseQuery.getQuery(CommonFunctions.FLATINFO_OBJECT);
-		mQueryRetrieveApartmentNo.whereEqualTo(CommonFunctions.FlatInfoTableClass.TENANT_MAIL_ID,
+
+		ParseQuery<ParseObject> mQueryRetrieveApartmentNo = ParseQuery
+				.getQuery(CommonFunctions.FLATINFO_TABLE);
+		mQueryRetrieveApartmentNo.whereEqualTo(
+				CommonFunctions.FlatInfoTableClass.TENANT_MAIL_ID,
 				CommonFunctions.UserTableClass.mCurrentUser);
-		mQueryRetrieveApartmentNo.findInBackground(new FindCallback<ParseObject>() {
-			
-			@Override
-			public void done(List<ParseObject> mFlatInfo, ParseException e) {
-				Log.d("demo", mFlatInfo.size()+"");
-				mCurrentUserFlatNo = CommonFunctions.trimString((String)mFlatInfo.get(0).
-						get(CommonFunctions.FlatInfoTableClass.TENANT_FLAT_NO).toString());
-				
-			}
-		});
-		
+		mQueryRetrieveApartmentNo
+				.findInBackground(new FindCallback<ParseObject>() {
+
+					@Override
+					public void done(List<ParseObject> mFlatInfo,
+							ParseException e) {
+						Log.d("demo", mFlatInfo.size() + "");
+						mCurrentUserFlatNo = CommonFunctions
+								.trimString((String) mFlatInfo
+										.get(0)
+										.get(CommonFunctions.FlatInfoTableClass.TENANT_FLAT_NO)
+										.toString());
+
+					}
+				});
+
 	}
+
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// If the nav drawer is open, hide action items related to the content
@@ -97,8 +104,6 @@ public class TenantHomePageActivity extends Activity implements
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
 		return super.onPrepareOptionsMenu(menu);
 	}
-
-
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -148,6 +153,30 @@ public class TenantHomePageActivity extends Activity implements
 							RenterConstantVariables.TICKET_LIST_FRAGMENT)
 					.commit();
 			break;
+		case 1:
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.content_frameTenant,
+							new FacilitiesFragment(),
+							RenterConstantVariables.TICKET_LIST_FRAGMENT)
+					.commit();
+			break;
+		case 2:
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.content_frameTenant,
+							new TicketListFragment(),
+							RenterConstantVariables.TICKET_LIST_FRAGMENT)
+					.commit();
+			break;
+		case 3:
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.content_frameTenant,
+							new DiscussionFragment(),
+							RenterConstantVariables.DISCUSSION_FRAGMENT)
+					.commit();
+			break;
 		case 5:
 			ParseUser.logOut();
 			Intent intent = new Intent(TenantHomePageActivity.this,
@@ -168,7 +197,8 @@ public class TenantHomePageActivity extends Activity implements
 	public void onClickingonTicket(Ticket mTicket) {
 
 		try {
-			TicketDetailsFragment mTicketDetailsFragment= TicketDetailsFragment.instanceOf(mTicket);
+			TicketDetailsFragment mTicketDetailsFragment = TicketDetailsFragment
+					.instanceOf(mTicket);
 			getFragmentManager()
 					.beginTransaction()
 					.replace(R.id.content_frameTenant, mTicketDetailsFragment,

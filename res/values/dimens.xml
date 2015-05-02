@@ -1,5 +1,18 @@
 <resources>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- EditText Dimensions -->
+    <dimen name="customEditTextVerticalPadding">3dp</dimen>
+    <dimen name="customEditTextHorizontalPadding">8dp</dimen>
+    <!-- Button Dimensions -->
+    <dimen name="buttonDefaultStrokeWidth">1dp</dimen>
+    <dimen name="buttonDefaultCornerRadius">5dp</dimen>
+    <dimen name="buttonPressedStrokeWidth">1dp</dimen>
+    <dimen name="buttonPressedCornerRadius">5dp</dimen>
+    <dimen name="buttonVerticalPadding">5dp</dimen>
+    <dimen name="buttonHorizontalPadding">10dp</dimen>
+
 </resources>

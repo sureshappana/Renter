@@ -9,9 +9,35 @@ import android.widget.Toast;
 public class CommonFunctions {
 	
 	static ProgressDialog progressDialog = null;
-	public static String FLATINFO_OBJECT = "FlatInfo"; 
-	public static String USER_OBJECT = "_User";
+	 
 	
+	public static final String FACILITY_TABLE = "Facilities";
+	public static final String FACILITY_TABLE_COMMUNITY_OBJECT = "communityObject";
+	public static final String FACILITY_TABLE_FACILITY_NAME = "FacilityName";
+	public static final String FACILITY_TABLE_FACILITY_OCCUPIED = "Occupied";
+	public static final String FACILITY_TABLE_FACILITY_TOTAL = "Total";
+	
+	public static final String FLATINFO_TABLE = "FlatInfo";
+	public static final String FLATINFO_TABLE_FLAT_NUMBER = "flatNumber";
+	public static final String FLATINFO_TABLE_TENANT_NAME = "tenantName";
+	public static final String FLATINFO_TABLE_TENANT_MAILID = "tenantMailId";
+	public static final String FLATINFO_TABLE_ADDEDBY = "AddedBy";
+	public static final String FLATINFO_TABLE_ISOCCUPIED = "isOccupied";
+	public static final String FLATINFO_TABLE_COMMUNITY_OBJECT = "communityObject";
+	
+	public static final String USER_TABLE = "_User";
+	public static final String USER_TABLE_COMMUNITYID = "CommunityId";
+	public static final String USER_TABLE_ISCOMMUNITY = "isCommunity";
+	
+	public static final String MESSAGE_TABLE = "Messages";
+	public static final String MESSAGE_TABLE_COMMUNITY_ID = "CommunityId";
+	public static final String MESSAGE_TABLE_APARTMENT_NO = "ApartmentNo";
+	public static final String MESSAGE_TABLE_USERNAME = "Username";
+	public static final String MESSAGE_TABLE_MESSAGEID = "MessageId";
+	public static final String MESSAGE_TABLE_MESSAGE_CONTENT = "Content";
+	public static final String MESSAGE_TABLE_UPDATED_AT = "updatedAt";
+	
+	public static final String PAYMILL_ID = "139329057943fdc2ff82599619b0631c";
 	public static String trimString(String str) {
 		return str.replace("]", "").replace("[", "").trim();
 	}

@@ -1,23 +1,29 @@
 package com.community.renter;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.community.renter.DisplayFlatFragment.OnFragmentInteractionListener;
 import com.example.renter.CommonFunctions;
 import com.example.renter.R;
+import com.parse.DeleteCallback;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class FlatFragment extends Fragment {
 	OnFragmentInteractionListener mListener;
 
+	
 	public FlatFragment() {
 	}
 
@@ -26,6 +32,7 @@ public class FlatFragment extends Fragment {
 			Bundle savedInstanceState) {
 		final View view = inflater.inflate(
 				R.layout.fragment_community_add_flat, container, false);
+
 
 		view.findViewById(R.id.addFlatButton).setOnClickListener(
 				new View.OnClickListener() {
@@ -51,7 +58,7 @@ public class FlatFragment extends Fragment {
 								|| (mtenantName.isEmpty() && mtenantMailId
 										.isEmpty())) {
 							ParseObject flatInfo = new ParseObject(
-									CommonFunctions.FLATINFO_OBJECT);
+									CommonFunctions.FLATINFO_TABLE);
 							flatInfo.add("communityObject", ParseUser
 									.getCurrentUser().getObjectId());
 							flatInfo.add("flatNumber", mflatNumber);
@@ -93,5 +100,6 @@ public class FlatFragment extends Fragment {
 	public interface OnFragmentInteractionListener {
 		public void gotoFlatInfoFragment();
 	}
+
 
 }

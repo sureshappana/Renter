@@ -1,39 +1,30 @@
 package com.example.renter;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Date;
 
-import com.parse.FindCallback;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
-
-import android.R.string;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 public class TenantAddTicketActivity extends Activity {
 	
@@ -71,7 +62,7 @@ public class TenantAddTicketActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				mTenantId = CommonFunctions.UserTableClass.mCurrentUser;// get From Login Details
-				mCommunityId = "";// get From Login Details
+				mCommunityId = CommonFunctions.trimString(ParseUser.getCurrentUser().get(CommonFunctions.USER_TABLE_COMMUNITYID).toString());// get From Login Details
 				mTitle = ((EditText) findViewById(R.id.editTextTenantTicketAddTitle)).getText().toString();
 				mDescription = ((EditText) findViewById(R.id.editTextTenantTicketAddDescription)).getText().toString();
 				mStatus = RenterConstantVariables.TICKET_STATUS_OPEN;
@@ -116,7 +107,7 @@ public class TenantAddTicketActivity extends Activity {
 								TicketListFragment.mTicketAdapter.insert(mTicket,0);
 								finish();
 							}else{
-								Log.d("demo", "Failed " + e.toString());
+								Log.d("renter", "Failed " + e.toString());
 							}
 						}
 					});

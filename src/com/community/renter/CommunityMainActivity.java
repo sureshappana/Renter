@@ -16,10 +16,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.renter.CommonFunctions;
+import com.example.renter.DiscussionFragment;
+import com.example.renter.FacilitiesFragment;
 import com.example.renter.LoginActivity;
 import com.example.renter.R;
 import com.example.renter.RenterConstantVariables;
-import com.example.renter.TenantHomePageActivity;
 import com.example.renter.Ticket;
 import com.example.renter.TicketDetailsFragment;
 import com.example.renter.TicketListFragment;
@@ -42,7 +43,7 @@ public class CommunityMainActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_community_main);
-		
+
 		CommonFunctions.UserTableClass.CurrentUserDetails();
 		mTitle = mDrawerTitle = getTitle();
 		mCommunityTitles = getResources().getStringArray(
@@ -110,12 +111,11 @@ public class CommunityMainActivity extends Activity implements
 		switch (position) {
 		case 0:
 			getFragmentManager()
-			.beginTransaction()
-			.replace(R.id.content_frame,
-					new TicketListFragment(),
-					RenterConstantVariables.TICKET_LIST_FRAGMENT)
-			.commit();
-	break;
+					.beginTransaction()
+					.replace(R.id.content_frame, new TicketListFragment(),
+							RenterConstantVariables.TICKET_LIST_FRAGMENT)
+					.commit();
+			break;
 		case 1:
 			gotoFlatInfoFragment();
 			break;
@@ -132,11 +132,13 @@ public class CommunityMainActivity extends Activity implements
 							"notifications").addToBackStack(null).commit();
 			break;
 		case 4: // Payments fragment break; case 5:
+
 			getFragmentManager()
 					.beginTransaction()
-					.replace(R.id.content_frame, new SettingsFragment(),
+					.replace(R.id.content_frame, new PaymentFragment(),
 							"settings").addToBackStack(null).commit();
 			break;
+			
 		case 6: // Signout fragment break; default:
 			ParseUser.logOut();
 			Intent intent = new Intent(CommunityMainActivity.this,
@@ -202,7 +204,8 @@ public class CommunityMainActivity extends Activity implements
 	@Override
 	public void onClickingonTicket(Ticket mTicket) {
 		try {
-			TicketDetailsFragment mTicketDetailsFragment= TicketDetailsFragment.instanceOf(mTicket);
+			TicketDetailsFragment mTicketDetailsFragment = TicketDetailsFragment
+					.instanceOf(mTicket);
 			getFragmentManager()
 					.beginTransaction()
 					.replace(R.id.content_frame, mTicketDetailsFragment,
@@ -212,6 +215,6 @@ public class CommunityMainActivity extends Activity implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 }

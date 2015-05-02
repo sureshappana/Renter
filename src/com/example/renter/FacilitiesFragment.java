@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
@@ -20,8 +21,10 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.community.renter.FacilityAdapter;
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -31,17 +34,19 @@ import com.parse.ParseUser;
 
 public class FacilitiesFragment extends Fragment {
 
+	static Context global_context = null;
 	static ArrayList<Facility> facilities = new ArrayList<Facility>();
-	ListView facilitiesListView = null;
+	static ListView facilitiesListView = null;
+	static FacilityAdapter mFacilityAdapter = null;
 	EditText mFacilityName = null;
 	EditText mFacilityTotal = null;
 	EditText mFacilityOccupied = null;
 	LinearLayout layout = null;
+	AlertDialog.Builder alert = null;
 	List<ParseObject> global_facilityList = null;
 	String facilityName = null;
 	int facilityTotal = -1;
 	int facilityOccupied = 0;
-	AlertDialog.Builder alert = null;
 
 	public FacilitiesFragment() {
 
@@ -50,7 +55,7 @@ public class FacilitiesFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+		global_context = getActivity();
 		final View view = inflater.inflate(
 				R.layout.fragment_community_facilities, container, false);
 		setHasOptionsMenu(true);
@@ -58,9 +63,31 @@ public class FacilitiesFragment extends Fragment {
 	}
 
 	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
+	public void onViewCreated(final View view, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onViewCreated(view, savedInstanceState);
+
+		if (!ParseUser.getCurrentUser().getBoolean(
+				CommonFunctions.USER_TABLE_ISCOMMUNITY)) {
+
+			ParseQuery<ParseObject> query = ParseQuery
+					.getQuery(CommonFunctions.FLATINFO_TABLE);
+			query.whereEqualTo(CommonFunctions.FLATINFO_TABLE_ISOCCUPIED, false);
+			query.whereEqualTo(
+					CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
+					CommonFunctions.trimString(ParseUser.getCurrentUser()
+							.get(CommonFunctions.USER_TABLE_COMMUNITYID)
+							.toString()));
+			query.findInBackground(new FindCallback<ParseObject>() {
+				public void done(List<ParseObject> appList, ParseException e) {
+					if (e == null) {
+						((TextView) view.findViewById(R.id.vacantFlatInfo))
+								.setText("Vacant Flats:" + appList.size());
+					}
+				}
+			});
+
+		}
 
 		updateFacilityListView();
 	}
@@ -84,6 +111,8 @@ public class FacilitiesFragment extends Fragment {
 							.get("CommunityId").toString()));
 		}
 
+		queryRetriveFacility
+				.addAscendingOrder(CommonFunctions.FACILITY_TABLE_FACILITY_NAME);
 		Log.d("renter",
 				"queryuser:"
 						+ CommonFunctions.trimString(ParseUser.getCurrentUser()
@@ -123,110 +152,105 @@ public class FacilitiesFragment extends Fragment {
 					facilitiesListView = (ListView) getActivity().findViewById(
 							R.id.facilitiesListView);
 
-					FacilityAdapter mFacilityAdapter = new FacilityAdapter(
-							getActivity(), R.layout.facility_list_row,
-							facilities);
+					mFacilityAdapter = new FacilityAdapter(getActivity(),
+							R.layout.facility_list_row, facilities);
+
 					facilitiesListView.setAdapter(mFacilityAdapter);
-					facilitiesListView
-							.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+					if (ParseUser.getCurrentUser().getBoolean("isCommunity")) {
+						facilitiesListView
+								.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
-								@Override
-								public boolean onItemLongClick(
-										AdapterView<?> parent, View view,
-										final int position, long id) {
-									CommonFunctions.toastMessage(getActivity(),
-											"long click");
-									Log.d("renter",
-											"facilities:listItemLongClick");
+									@Override
+									public boolean onItemLongClick(
+											AdapterView<?> parent, View view,
+											final int position, long id) {
+										initializeViews();
+										alert.setTitle("Edit Facility:")
+												.setPositiveButton(
+														"Update",
+														new DialogInterface.OnClickListener() {
+															public void onClick(
+																	DialogInterface dialog,
+																	int whichButton) {
+																if (validateAlertDialogInputs()) {
+																	try {
 
-									initializeViews();
-
-									alert.setTitle("Edit Facility:")
-											.setPositiveButton(
-													"Update",
-													new DialogInterface.OnClickListener() {
-														public void onClick(
-																DialogInterface dialog,
-																int whichButton) {
-															if (validateAlertDialogInputs()) {
-																Log.d("renter",
-																		"facilities:updating_before_parse_query");
-																try {
-
-																	ParseQuery<ParseObject> query = ParseQuery
-																			.getQuery(CommonFunctions.FACILITY_TABLE);
-																	query.getInBackground(
-																			global_facilityList
-																					.get(position)
-																					.getObjectId(),
-																			new GetCallback<ParseObject>() {
-																				public void done(
-																						ParseObject addFacility,
-																						ParseException e) {
-																					if (e == null) {
-																						addFacility
-																								.put(CommonFunctions.FACILITY_TABLE_FACILITY_NAME,
-																										facilityName);
-																						addFacility
-																								.put(CommonFunctions.FACILITY_TABLE_FACILITY_TOTAL,
-																										facilityTotal);
-																						addFacility
-																								.put(CommonFunctions.FACILITY_TABLE_FACILITY_OCCUPIED,
-																										facilityOccupied);
-																						addFacility
-																								.put(CommonFunctions.FACILITY_TABLE_COMMUNITY_OBJECT,
-																										CommonFunctions
-																												.trimString(ParseUser
-																														.getCurrentUser()
-																														.getObjectId()));
-																						addFacility
-																								.saveInBackground();
-																						updateFacilityListView();
+																		ParseQuery<ParseObject> query = ParseQuery
+																				.getQuery(CommonFunctions.FACILITY_TABLE);
+																		query.getInBackground(
+																				global_facilityList
+																						.get(position)
+																						.getObjectId(),
+																				new GetCallback<ParseObject>() {
+																					public void done(
+																							ParseObject addFacility,
+																							ParseException e) {
+																						if (e == null) {
+																							addFacility
+																									.put(CommonFunctions.FACILITY_TABLE_FACILITY_NAME,
+																											facilityName);
+																							addFacility
+																									.put(CommonFunctions.FACILITY_TABLE_FACILITY_TOTAL,
+																											facilityTotal);
+																							addFacility
+																									.put(CommonFunctions.FACILITY_TABLE_FACILITY_OCCUPIED,
+																											facilityOccupied);
+																							addFacility
+																									.put(CommonFunctions.FACILITY_TABLE_COMMUNITY_OBJECT,
+																											CommonFunctions
+																													.trimString(ParseUser
+																															.getCurrentUser()
+																															.getObjectId()));
+																							addFacility
+																									.saveInBackground();
+																							updateFacilityListView();
+																						}
 																					}
-																				}
-																			});
+																				});
 
-																} catch (Exception ex) {
+																	} catch (Exception ex) {
+																		Log.d("renter",
+																				"Exception:facility update;"
+																						+ ex.getMessage());
+																	}
 																	Log.d("renter",
-																			"Exception:facility update;"
-																					+ ex.getMessage());
+																			"facilities:updating_after_parse_query");
 																}
-																Log.d("renter",
-																		"facilities:updating_after_parse_query");
+
 															}
+														})
+												.setNegativeButton(
+														"Cancel",
+														new DialogInterface.OnClickListener() {
+															public void onClick(
+																	DialogInterface dialog,
+																	int whichButton) {
+																/*
+																 * User clicked
+																 * cancel so do
+																 * some stuff
+																 */
+															}
+														});
+										alert.show();
+										mFacilityName.setText(facilities.get(
+												position).getFacilityName());
+										mFacilityName.setEnabled(false);
+										mFacilityTotal.setText(""
+												+ facilities.get(position)
+														.getFacilityTotal());
+										mFacilityOccupied
+												.setText(""
+														+ (facilities
+																.get(position)
+																.getFacilityTotal() - facilities
+																.get(position)
+																.getFacilityAvailable()));
 
-														}
-													})
-											.setNegativeButton(
-													"Cancel",
-													new DialogInterface.OnClickListener() {
-														public void onClick(
-																DialogInterface dialog,
-																int whichButton) {
-															/*
-															 * User clicked
-															 * cancel so do some
-															 * stuff
-															 */
-														}
-													});
-									alert.show();
-									mFacilityName.setText(facilities.get(
-											position).getFacilityName());
-									mFacilityName.setEnabled(false);
-									mFacilityTotal.setText(""
-											+ facilities.get(position)
-													.getFacilityTotal());
-									mFacilityOccupied
-											.setText(""
-													+ (facilities.get(position)
-															.getFacilityTotal() - facilities
-															.get(position)
-															.getFacilityAvailable()));
-
-									return false;
-								}
-							});
+										return false;
+									}
+								});
+					}
 				} else {
 					global_facilityList = null;
 					CommonFunctions.toastMessage(
@@ -245,7 +269,6 @@ public class FacilitiesFragment extends Fragment {
 		if (!ParseUser.getCurrentUser().getBoolean("isCommunity")) {
 			MenuItem item = menu.findItem(R.id.action_addFacility);
 			item.setVisible(false);
-
 		}
 		super.onCreateOptionsMenu(menu, inflater);
 	}
@@ -391,5 +414,47 @@ public class FacilitiesFragment extends Fragment {
 		alert = new AlertDialog.Builder(getActivity());
 		alert.setView(layout);
 
+	}
+
+	public static void removeListViewItem(final int position) {
+
+		CommonFunctions.startProgressDialog(global_context,
+				"Deleting the item. Please wait...");
+
+		ParseQuery<ParseObject> query = ParseQuery
+				.getQuery(CommonFunctions.FACILITY_TABLE);
+
+		query.whereEqualTo(CommonFunctions.FACILITY_TABLE_COMMUNITY_OBJECT,
+				CommonFunctions.trimString(ParseUser.getCurrentUser()
+						.getObjectId()));
+		query.whereEqualTo(CommonFunctions.FACILITY_TABLE_FACILITY_NAME,
+				mFacilityAdapter.getItem(position).getFacilityName());
+		query.findInBackground(new FindCallback<ParseObject>() {
+			public void done(List<ParseObject> appList, ParseException e) {
+				CommonFunctions.stopProgressDialog();
+				if (e == null) {
+					for (ParseObject obj : appList) {
+						obj.deleteInBackground(new DeleteCallback() {
+							@Override
+							public void done(ParseException arg0) {
+								if (arg0 == null) {
+									mFacilityAdapter.remove(mFacilityAdapter
+											.getItem(position));
+									CommonFunctions.toastMessage(
+											global_context,
+											"Deleted successfully");
+
+								} else {
+									CommonFunctions.toastMessage(
+											global_context,
+											"Error in deleting facility. Error:"
+													+ arg0.toString());
+								}
+							}
+						});
+					}
+				}
+			}
+		});
 	}
 }

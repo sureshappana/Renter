@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -16,5 +16,50 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+
+    <style name="labelStyle">
+        <item name="android:textColor">@color/labelTextColor</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="editTextStyle">
+        <item name="android:background">@drawable/pm_edit_text_background</item>
+        <item name="com.example.renter:borderColor">@color/editTextBorderColor</item>
+        <item name="com.example.renter:inactiveBorderColor">@color/editTextInactiveBorderColor</item>
+    </style>
+
+    <!-- Styles -->
+    <style name="buttonStyle">
+        <item name="android:background">@drawable/pm_button_background</item>
+        <item name="android:textColor">@color/buttonTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:shadowColor">@color/buttonTextShadowColor</item>
+        <item name="android:shadowDx">0.5</item>
+        <item name="android:shadowDy">-1</item>
+        <item name="android:shadowRadius">1.5</item>
+    </style>
+
+    <!-- Colors -->
+    <color name="backgroundColor">#FFFFFFFF</color>
+    <!-- Button Colors -->
+    <color name="buttonTextColor">#FFFFFF</color>
+    <color name="buttonTextShadowColor">#000000</color>
+    <color name="buttonDefaultColor">#FFEF5322</color>
+    <color name="buttonDefaultStrokeColor">#891C1C</color>
+    <color name="buttonPressedColor">#891C1C</color>
+    <color name="buttonPressedStrokeColor">#891C1C</color>
+    
+    <!-- Label Colors -->
+    <color name="labelTextColor">#000000</color>
+    
+    <!-- EditText Colors -->
+    <color name="editTextBackgroundColor">#FFFFFF</color>
+    <color name="editTextBorderColor">#FFEF5322</color>
+    <color name="editTextInactiveBorderColor">#999999</color>
+    <color name="errorTextColor">#FFFF0000</color>
+    <color name="defaultTextColor">#FF000000</color>
+
 
 </resources>

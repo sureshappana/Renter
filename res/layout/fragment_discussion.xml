@@ -1,0 +1,49 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.renter.DiscussionFragment" >
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <ListView
+            android:id="@+id/messagesListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/messageLinearLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" >
+        </ListView>
+
+        <LinearLayout
+            android:id="@+id/messageLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" >
+
+            <EditText
+                android:id="@+id/messageEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="9"
+                android:background="@drawable/input_border"
+                android:ems="10" />
+
+            <ImageView
+                android:id="@+id/sendImage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/send" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

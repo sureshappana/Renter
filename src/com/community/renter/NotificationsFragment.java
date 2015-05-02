@@ -40,7 +40,7 @@ public class NotificationsFragment extends Fragment {
 		final View view =  inflater.inflate(R.layout.fragment_community_notifications,
 				container, false);
 		
-		ParseQuery<ParseObject> mQueryRetrieveFlatMembers = ParseQuery.getQuery(CommonFunctions.FLATINFO_OBJECT);
+		ParseQuery<ParseObject> mQueryRetrieveFlatMembers = ParseQuery.getQuery(CommonFunctions.FLATINFO_TABLE);
 		mQueryRetrieveFlatMembers.whereEqualTo(CommonFunctions.FlatInfoTableClass.TENANT_IS_OCCUPIED, true);
 		mQueryRetrieveFlatMembers.findInBackground(new FindCallback<ParseObject>() {
 			

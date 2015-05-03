@@ -30,8 +30,8 @@
     <string name="action_deleteTenant">Delete Tenant Info</string>
     <string name="addFlatButton">Add Flat</string>
     <string name="flatNumberhint">Flat Number</string>
-    <string name="tenantNamehint">Tenant Name(Optional)</string>
-    <string name="tenantMailIdhint">Tenant Mail Id(Optional)</string>
+    <string name="tenantNamehint">Tenant Name</string>
+    <string name="tenantMailIdhint">Tenant MailId</string>
     <string name="tenantMailIdTitleTextView">Tenant Mail Id</string>
 	<string name="tenantNameTitleTextView">Tenant Name</string>
 	<string name="flatNumberTitleTextView">Flat Number</string>
@@ -90,6 +90,7 @@
         <item>Payments</item>
         <item>Discussion Forum</item>
         <item>Settings</item>
+        <item>Add Friends</item>
         <item>Sign Out</item>
     </string-array>
     
@@ -120,6 +121,11 @@
     <string name="pm_cc_trigger_btn_default">Pay</string>
     
     <string name="pm_emptyMSG">Field cannot be empty</string>
+<<<<<<< Updated upstream
     
     <string name="service_name">NotificationAccessibilityService</string>
+=======
+    <string name="title_activity_add_friend">AddFriendActivity</string>
+    
+>>>>>>> Stashed changes
 </resources>

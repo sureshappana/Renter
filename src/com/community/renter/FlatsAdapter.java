@@ -36,10 +36,6 @@ public class FlatsAdapter extends ArrayAdapter<Flat> {
 
 		TextView mFlatNumber = (TextView) convertView
 				.findViewById(R.id.flatNumber);
-		TextView mTenantName = (TextView) convertView
-				.findViewById(R.id.tenantName);
-		TextView mTenantMailId = (TextView) convertView
-				.findViewById(R.id.tenantMailId);
 		TextView mFlatOccupiedStatus = (TextView) convertView
 				.findViewById(R.id.flatOccupiedStatus);
 
@@ -49,9 +45,16 @@ public class FlatsAdapter extends ArrayAdapter<Flat> {
 
 			@Override
 			public void onClick(View v) {
-				
-				
 				FlatInfoFragment.removeListViewItem(position);
+			}
+		});
+		ImageView addFlatMembers = (ImageView) convertView
+				.findViewById(R.id.addFlatMembers);
+		addFlatMembers.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FlatInfoFragment.addFlatMembers(position);
 			}
 		});
 
@@ -59,8 +62,6 @@ public class FlatsAdapter extends ArrayAdapter<Flat> {
 
 			mFlatNumber.setText(flats.get(position).getFlatNumber());
 			if (flats.get(position).getFlatOccupiedStatus().equals("true")) {
-				mTenantName.setText(flats.get(position).getTenantName());
-				mTenantMailId.setText(flats.get(position).getTenantMailId());
 				mFlatOccupiedStatus.setText("Occupied");
 			} else
 				mFlatOccupiedStatus.setText("Vacant");

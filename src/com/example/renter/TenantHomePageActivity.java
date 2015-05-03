@@ -169,8 +169,7 @@ public class TenantHomePageActivity extends Activity implements
 		case 2:
 			getFragmentManager()
 					.beginTransaction()
-					.replace(R.id.content_frameTenant,
-							new PaymentFragment(),
+					.replace(R.id.content_frameTenant, new PaymentFragment(),
 							RenterConstantVariables.TICKET_LIST_FRAGMENT)
 					.commit();
 			break;
@@ -185,14 +184,19 @@ public class TenantHomePageActivity extends Activity implements
 		case 4:
 			getFragmentManager()
 					.beginTransaction()
-					.replace(R.id.content_frameTenant,
-							new SettingsFragment(),
-							RenterConstantVariables.SETTINGS_FRAGMENT)
-					.commit();
+					.replace(R.id.content_frameTenant, new SettingsFragment(),
+							RenterConstantVariables.SETTINGS_FRAGMENT).commit();
 			break;
 		case 5:
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.content_frameTenant, new SettingsFragment(),
+							RenterConstantVariables.SETTINGS_FRAGMENT).commit();
+			break;
+		case 6:
 			ParseUser.logOut();
-			ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+			ParseInstallation installation = ParseInstallation
+					.getCurrentInstallation();
 			installation.put("channels", new ArrayList<String>());
 			installation.saveInBackground();
 

@@ -1,7 +1,4 @@
-package com.community.renter;
-
-import com.example.renter.R;
-import com.example.renter.R.layout;
+package com.example.renter;
 
 import android.os.Bundle;
 import android.app.Fragment;
@@ -13,9 +10,9 @@ import android.view.ViewGroup;
  * A simple {@link Fragment} subclass.
  * 
  */
-public class FacilitiesFragment extends Fragment {
+public class AddFriendFragment extends Fragment {
 
-	public FacilitiesFragment() {
+	public AddFriendFragment() {
 		// Required empty public constructor
 	}
 
@@ -23,8 +20,7 @@ public class FacilitiesFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_community_facilities,
-				container, false);
+		return inflater.inflate(R.layout.fragment_tenant_add_friend, container, false);
 	}
 
 }

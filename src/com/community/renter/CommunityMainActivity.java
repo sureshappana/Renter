@@ -31,7 +31,6 @@ import com.parse.ParseUser;
 
 public class CommunityMainActivity extends Activity implements
 		TicketListFragment.OnFragmentInteractionListener,
-		FlatInfoFragment.OnFragmentInteractionListener,
 		DisplayFlatFragment.OnFragmentInteractionListener,
 		FlatFragment.OnFragmentInteractionListener {
 
@@ -182,6 +181,7 @@ public class CommunityMainActivity extends Activity implements
 	}
 
 	@Override
+<<<<<<< Updated upstream
 	public void gotoFlatFragment() {
 		getFragmentManager().beginTransaction()
 				.replace(R.id.content_frame, new FlatFragment(), "add_flat")
@@ -200,6 +200,8 @@ public class CommunityMainActivity extends Activity implements
 	}
 
 	@Override
+=======
+>>>>>>> Stashed changes
 	public void gotoFlatInfoFragment() {
 		getFragmentManager()
 				.beginTransaction()

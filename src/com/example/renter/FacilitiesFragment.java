@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -411,7 +412,7 @@ public class FacilitiesFragment extends Fragment {
 			return false;
 		} else if (facilityTotal < facilityOccupied) {
 			CommonFunctions.toastMessage(getActivity(),
-					"Occupied should be less than total");
+					"Occupied should not be more than total available");
 			return false;
 		}
 		return true;
@@ -446,43 +447,56 @@ public class FacilitiesFragment extends Fragment {
 
 	public static void removeListViewItem(final int position) {
 
-		CommonFunctions.startProgressDialog(global_context,
-				"Deleting the item. Please wait...");
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(global_context);
+		alertDialog.setTitle("Confirmation Message")
+		.setMessage("You reallay want to delete?")
+		.setNegativeButton("No", null)
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				CommonFunctions.startProgressDialog(global_context,
+						"Deleting the item. Please wait...");
 
-		ParseQuery<ParseObject> query = ParseQuery
-				.getQuery(CommonFunctions.FACILITY_TABLE);
+				ParseQuery<ParseObject> query = ParseQuery
+						.getQuery(CommonFunctions.FACILITY_TABLE);
 
-		query.whereEqualTo(CommonFunctions.FACILITY_TABLE_COMMUNITY_OBJECT,
-				CommonFunctions.trimString(ParseUser.getCurrentUser()
-						.getObjectId()));
-		query.whereEqualTo(CommonFunctions.FACILITY_TABLE_FACILITY_NAME,
-				mFacilityAdapter.getItem(position).getFacilityName());
-		query.findInBackground(new FindCallback<ParseObject>() {
-			public void done(List<ParseObject> appList, ParseException e) {
-				CommonFunctions.stopProgressDialog();
-				if (e == null) {
-					for (ParseObject obj : appList) {
-						obj.deleteInBackground(new DeleteCallback() {
-							@Override
-							public void done(ParseException arg0) {
-								if (arg0 == null) {
-									mFacilityAdapter.remove(mFacilityAdapter
-											.getItem(position));
-									CommonFunctions.toastMessage(
-											global_context,
-											"Deleted successfully");
+				query.whereEqualTo(CommonFunctions.FACILITY_TABLE_COMMUNITY_OBJECT,
+						CommonFunctions.trimString(ParseUser.getCurrentUser()
+								.getObjectId()));
+				query.whereEqualTo(CommonFunctions.FACILITY_TABLE_FACILITY_NAME,
+						mFacilityAdapter.getItem(position).getFacilityName());
+				query.findInBackground(new FindCallback<ParseObject>() {
+					public void done(List<ParseObject> appList, ParseException e) {
+						CommonFunctions.stopProgressDialog();
+						if (e == null) {
+							for (ParseObject obj : appList) {
+								obj.deleteInBackground(new DeleteCallback() {
+									@Override
+									public void done(ParseException arg0) {
+										if (arg0 == null) {
+											mFacilityAdapter.remove(mFacilityAdapter
+													.getItem(position));
+											CommonFunctions.toastMessage(
+													global_context,
+													"Deleted successfully");
 
-								} else {
-									CommonFunctions.toastMessage(
-											global_context,
-											"Error in deleting facility. Error:"
-													+ arg0.toString());
-								}
+										} else {
+											CommonFunctions.toastMessage(
+													global_context,
+													"Error in deleting facility. Error:"
+															+ arg0.toString());
+										}
+									}
+								});
 							}
-						});
+						}
 					}
-				}
+				});
+
+				
 			}
-		});
+		})
+		.show();
 	}
 }

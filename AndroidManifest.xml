@@ -18,7 +18,7 @@
 
     <!--
   IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
-  to match your app's package name + ".permission.C2D_MESSAGE".
+  to match your app's package name + ".permission.C2D_MESSAGE".
     -->
     <permission
         android:name="com.example.renter.permission.C2D_MESSAGE"
@@ -95,6 +95,11 @@
                 <category android:name="com.example.renter" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".AddFriendActivity"
+            android:label="@string/title_activity_add_friend" >
+        </activity>
     </application>
 
 </manifest>

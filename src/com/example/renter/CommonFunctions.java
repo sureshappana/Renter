@@ -24,13 +24,18 @@ public class CommonFunctions {
 	public static final String FLATINFO_TABLE_FLAT_NUMBER = "flatNumber";
 	public static final String FLATINFO_TABLE_TENANT_NAME = "tenantName";
 	public static final String FLATINFO_TABLE_TENANT_MAILID = "tenantMailId";
-	public static final String FLATINFO_TABLE_ADDEDBY = "AddedBy";
+	//public static final String FLATINFO_TABLE_ADDEDBY = "AddedBy";
 	public static final String FLATINFO_TABLE_ISOCCUPIED = "isOccupied";
 	public static final String FLATINFO_TABLE_COMMUNITY_OBJECT = "communityObject";
 	
 	public static final String USER_TABLE = "_User";
 	public static final String USER_TABLE_COMMUNITYID = "CommunityId";
 	public static final String USER_TABLE_ISCOMMUNITY = "isCommunity";
+<<<<<<< Updated upstream
+=======
+	public static final String USER_TABLE_USERNAME = "username";
+	public static final String USER_TABLE_EMAIL = "email";
+>>>>>>> Stashed changes
 	
 	public static final String MESSAGE_TABLE = "Messages";
 	public static final String MESSAGE_TABLE_COMMUNITY_ID = "CommunityId";

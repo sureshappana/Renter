@@ -159,8 +159,8 @@ public class TenantAddTicketActivity extends Activity {
 			((TextView)findViewById(R.id.textViewTenantAddTicketEndDate)).setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					if(((RadioButton)findViewById(R.id.radio2TenantTicketAddStatus)).isChecked()){ // added by midhun later
 					int actualMonth,actualYear,actualDay;
-					Toast.makeText(TenantAddTicketActivity.this, "clicked on end date", Toast.LENGTH_SHORT).show();
 						actualMonth = Integer.parseInt(DateFormat.format("MM", mCurrentDate)
 								.toString());
 						actualYear = Integer.parseInt(DateFormat.format("yyyy", mCurrentDate)
@@ -184,9 +184,10 @@ public class TenantAddTicketActivity extends Activity {
 							}, actualYear, actualMonth - 1, actualDay);
 					datePicker.setCancelable(false);
 					datePicker.show();
+					}//added by midhun later
 				}
 			});
-
+			
 			mTextViewTicketStartDate.setText("Ticket raised on: "+mDateFormat.format(mTicketBeforeEdit.getmStartDate()));
 			try {
 				mTexViewTicketEndDate.setText("Ticket closed on: "+mDateFormat.format(mTicketBeforeEdit.getmCloseDate()));

@@ -36,6 +36,7 @@ public class LoginActivity extends Activity {
 				startActivity(new Intent(
 						LoginActivity.this,
 						CommunityMainActivity.class));
+				finish();// added by midhun
 			}
 
 			else {
@@ -43,6 +44,7 @@ public class LoginActivity extends Activity {
 				startActivity(new Intent(
 						LoginActivity.this,
 						TenantHomePageActivity.class));
+				finish();// added by midhun
 			}
 		}
 		findViewById(R.id.signUpBtn).setOnClickListener(
@@ -172,6 +174,7 @@ public class LoginActivity extends Activity {
 														startActivity(new Intent(
 																LoginActivity.this,
 																CommunityMainActivity.class));
+														finish();// added by midhun
 													}
 
 													else {
@@ -179,6 +182,7 @@ public class LoginActivity extends Activity {
 														startActivity(new Intent(
 																LoginActivity.this,
 																TenantHomePageActivity.class));
+														finish();// added by midhun
 													}
 												}
 											} else {

@@ -126,20 +126,20 @@ public class CommunityMainActivity extends Activity implements
 			getFragmentManager()
 					.beginTransaction()
 					.replace(R.id.content_frame, new FacilitiesFragment(),
-							"facilites").addToBackStack(null).commit();
+							"facilites").commit();
 			break;
 		case 3:
 			getFragmentManager()
 					.beginTransaction()
 					.replace(R.id.content_frame, new NotificationsFragment(),
-							"notifications").addToBackStack(null).commit();
+							"notifications").commit();
 			break;
 		case 4: // Payments fragment break; case 5:
 
 			getFragmentManager()
 					.beginTransaction()
 					.replace(R.id.content_frame, new SettingsFragment(),
-							"settings").addToBackStack(null).commit();
+							"settings").commit();
 			break;
 			
 		case 5: // Signout fragment break; default:
@@ -185,7 +185,7 @@ public class CommunityMainActivity extends Activity implements
 	public void gotoFlatFragment() {
 		getFragmentManager().beginTransaction()
 				.replace(R.id.content_frame, new FlatFragment(), "add_flat")
-				.addToBackStack(null).commit();
+				.commit();
 
 	}
 
@@ -204,7 +204,7 @@ public class CommunityMainActivity extends Activity implements
 		getFragmentManager()
 				.beginTransaction()
 				.replace(R.id.content_frame, new FlatInfoFragment(), "flatinfo")
-				.addToBackStack(null).commit();
+				.commit();
 
 	}
 

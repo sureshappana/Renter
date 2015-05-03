@@ -3,18 +3,8 @@ package com.example.renter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.community.renter.CommunityMainActivity;
-import com.community.renter.PaymentFragment;
-import com.community.renter.SettingsFragment;
-import com.community.renter.TicketsFragment;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseInstallation;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -29,6 +19,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.community.renter.PaymentFragment;
+import com.community.renter.SettingsFragment;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class TenantHomePageActivity extends Activity implements
@@ -102,6 +99,21 @@ public class TenantHomePageActivity extends Activity implements
 
 	}
 
+	@Override
+	public void onBackPressed() {
+		Fragment myFragment = (Fragment) getFragmentManager()
+				.findFragmentByTag(RenterConstantVariables.TICKET_LIST_FRAGMENT);
+		if (myFragment instanceof TicketListFragment) {
+			finish();
+		} else {
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.content_frame, new TicketListFragment(),
+							RenterConstantVariables.TICKET_LIST_FRAGMENT)
+					.commit();
+		}
+
+	}
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// If the nav drawer is open, hide action items related to the content

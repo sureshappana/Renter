@@ -14,13 +14,20 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.community.renter.CommunityMainActivity;
+import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
 import com.parse.ParsePush;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class LoginActivity extends Activity {
+
+String tenantName = null;
+String tenantApartmentNo = null;
+static boolean flag = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +47,10 @@ public class LoginActivity extends Activity {
 			}
 
 			else {
-
-				startActivity(new Intent(
-						LoginActivity.this,
-						TenantHomePageActivity.class));
-				finish();// added by midhun
+				if(flag == false)
+					getTenantDetails();
+				
+				
 			}
 		}
 		findViewById(R.id.signUpBtn).setOnClickListener(
@@ -197,4 +203,36 @@ public class LoginActivity extends Activity {
 					}
 				});
 	}
+	
+	private void getTenantDetails() {
+		ParseQuery<ParseObject> query = ParseQuery
+				.getQuery(CommonFunctions.FLATINFO_TABLE);
+		query.whereEqualTo(CommonFunctions.FLATINFO_TABLE_TENANT_MAILID,
+				CommonFunctions.trimString(ParseUser.getCurrentUser()
+						.getEmail()));
+		query.findInBackground(new FindCallback<ParseObject>() {
+			public void done(List<ParseObject> tenantList, ParseException e) {
+				if (e == null) {
+					if (tenantList.size() > 0) {
+						ParseObject tenant = tenantList.get(0);
+						tenantName = CommonFunctions.trimString(tenant.get(
+								CommonFunctions.FLATINFO_TABLE_TENANT_NAME)
+								.toString());
+						tenantApartmentNo = CommonFunctions
+								.trimString(tenant
+										.get(CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER)
+										.toString());
+						startActivity(new Intent(
+								LoginActivity.this,
+								TenantHomePageActivity.class));
+						finish();// added by midhun
+					}
+				} else {
+					Log.d("score", "Error: " + e.getMessage());
+				}
+			}
+		});
+		flag = true;
+	}
+
 }

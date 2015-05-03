@@ -50,7 +50,7 @@ public class TicketDetailsFragment extends Fragment {
 		int id = item.getItemId();
 		if(id == R.id.buttonEditTicket){
 			Intent i = new Intent(getActivity(),
-					TenantAddTicketActivity.class);
+					TicketAddOrUpdateActivity.class);
 			i.putExtra(RenterConstantVariables.EDIT_TICKET, mTicket);
 			startActivity(i);
 		}

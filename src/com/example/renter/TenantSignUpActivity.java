@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
@@ -74,7 +75,7 @@ public class TenantSignUpActivity extends Fragment {
 														.toastMessage(
 																getActivity().getApplicationContext(),
 																"A confirmation email sent you the specified email.");
-												
+												ParseUser.logOut();
 												startActivity(new Intent(
 														view.getContext(),
 														LoginActivity.class));

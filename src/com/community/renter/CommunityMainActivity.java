@@ -3,6 +3,7 @@ package com.community.renter;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -18,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.renter.CommonFunctions;
-import com.example.renter.DiscussionFragment;
 import com.example.renter.FacilitiesFragment;
 import com.example.renter.LoginActivity;
 import com.example.renter.R;
@@ -30,9 +30,7 @@ import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
 public class CommunityMainActivity extends Activity implements
-		TicketListFragment.OnFragmentInteractionListener,
-		DisplayFlatFragment.OnFragmentInteractionListener,
-		FlatFragment.OnFragmentInteractionListener {
+		TicketListFragment.OnFragmentInteractionListener {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -77,6 +75,22 @@ public class CommunityMainActivity extends Activity implements
 		if (savedInstanceState == null) {
 			selectItem(0);
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		Fragment myFragment = (Fragment) getFragmentManager()
+				.findFragmentByTag(RenterConstantVariables.TICKET_LIST_FRAGMENT);
+		if (myFragment instanceof TicketListFragment) {
+			finish();
+		} else {
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.content_frame, new TicketListFragment(),
+							RenterConstantVariables.TICKET_LIST_FRAGMENT)
+					.commit();
+		}
+
 	}
 
 	@Override
@@ -140,10 +154,11 @@ public class CommunityMainActivity extends Activity implements
 					.replace(R.id.content_frame, new SettingsFragment(),
 							"settings").commit();
 			break;
-			
+
 		case 5: // Signout fragment break; default:
 			ParseUser.logOut();
-			ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+			ParseInstallation installation = ParseInstallation
+					.getCurrentInstallation();
 			installation.put("channels", new ArrayList<String>());
 			installation.saveInBackground();
 
@@ -180,28 +195,6 @@ public class CommunityMainActivity extends Activity implements
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
-	@Override
-<<<<<<< Updated upstream
-	public void gotoFlatFragment() {
-		getFragmentManager().beginTransaction()
-				.replace(R.id.content_frame, new FlatFragment(), "add_flat")
-				.commit();
-
-	}
-
-	@Override
-	public void flatSelected(String flatNumber) {
-
-		getFragmentManager()
-				.beginTransaction()
-				.replace(R.id.content_frame,
-						new DisplayFlatFragment(flatNumber),
-						"display_flat_info").addToBackStack(null).commit();
-	}
-
-	@Override
-=======
->>>>>>> Stashed changes
 	public void gotoFlatInfoFragment() {
 		getFragmentManager()
 				.beginTransaction()

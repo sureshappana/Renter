@@ -1,5 +1,6 @@
 package com.example.renter;
 
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.parse.ParsePush;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 

@@ -53,7 +53,7 @@ public class TicketListFragment extends Fragment {
 		int id = item.getItemId();
 		if (id == R.id.buttonAddTicket) {
 			Intent i = new Intent(getActivity(),
-					TenantAddTicketActivity.class);
+					TicketAddOrUpdateActivity.class);
 			i.putExtra(RenterConstantVariables.ADD_TICKET, RenterConstantVariables.ADD_TICKET);
 			startActivity(i);
 		}

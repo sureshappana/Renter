@@ -153,7 +153,7 @@ public class FlatInfoFragment extends Fragment {
 																	tenantName);
 															flatInfo.add(
 																	CommonFunctions.FLATINFO_TABLE_TENANT_MAILID,
-																	tenantMailId);
+																	tenantMailId.toLowerCase());
 															flatInfo.add(
 																	CommonFunctions.FLATINFO_TABLE_ISOCCUPIED,
 																	true);
@@ -299,7 +299,7 @@ public class FlatInfoFragment extends Fragment {
 										.trimString(flatsList
 												.get(i)
 												.get(CommonFunctions.FLATINFO_TABLE_TENANT_MAILID)
-												.toString());
+												.toString().toLowerCase());
 							flats.add(new Flat(
 									fNumber,
 									temp_tenantName,
@@ -604,13 +604,14 @@ public class FlatInfoFragment extends Fragment {
 								query.findInBackground(new FindCallback<ParseObject>() {
 									public void done(List<ParseObject> appList,
 											ParseException e) {
-										CommonFunctions.stopProgressDialog();
+
 										if (e == null) {
 											for (ParseObject obj : appList) {
 												obj.deleteInBackground(new DeleteCallback() {
 													@Override
 													public void done(
 															ParseException arg0) {
+														CommonFunctions.stopProgressDialog();
 														if (arg0 == null) {
 															mFlatsAdapter
 																	.remove(mFlatsAdapter
@@ -629,6 +630,9 @@ public class FlatInfoFragment extends Fragment {
 													}
 												});
 											}
+										} else {
+											CommonFunctions.stopProgressDialog();
+											CommonFunctions.startProgressDialog(global_activity, "Error in deleting");
 										}
 									}
 								});

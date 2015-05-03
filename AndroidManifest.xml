@@ -58,7 +58,7 @@
             android:label="@string/title_activity_tenant" >
         </activity>
         <activity
-            android:name=".TenantAddTicketActivity"
+            android:name=".TicketAddOrUpdateActivity"
             android:label="@string/title_activity_add_tickets" >
         </activity>
 
@@ -96,10 +96,7 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".AddFriendActivity"
-            android:label="@string/title_activity_add_friend" >
-        </activity>
+       
     </application>
 
 </manifest>

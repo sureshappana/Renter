@@ -121,11 +121,5 @@
     <string name="pm_cc_trigger_btn_default">Pay</string>
     
     <string name="pm_emptyMSG">Field cannot be empty</string>
-<<<<<<< Updated upstream
-    
-    <string name="service_name">NotificationAccessibilityService</string>
-=======
-    <string name="title_activity_add_friend">AddFriendActivity</string>
-    
->>>>>>> Stashed changes
+
 </resources>

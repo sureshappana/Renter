@@ -126,7 +126,7 @@ public class TicketListFragment extends Fragment {
 	}
 
 	public void mDisplayTicketInListViewSortedByUpdatedTime(){
-		
+		CommonFunctions.startProgressDialog(getActivity(), "Loading tickets....");
 		ParseQuery<ParseObject> queryRetriveTicket = 
 				ParseQuery.getQuery(RenterConstantVariables.TICKETTABLE);
 		if(!CommonFunctions.UserTableClass.mCurrentUserIsAdmin){
@@ -172,9 +172,14 @@ public class TicketListFragment extends Fragment {
 					tickets.add(ticket);
 				}
 				
-				mticketListView = (ListView) getActivity().findViewById(R.id.listViewTicket);
-				mTicketAdapter = new TicketAdapter(getActivity(), tickets);
-				mticketListView.setAdapter(mTicketAdapter);
+				try {
+					mticketListView = (ListView) getActivity().findViewById(R.id.listViewTicket);
+					mTicketAdapter = new TicketAdapter(getActivity(), tickets);
+					mticketListView.setAdapter(mTicketAdapter);
+					CommonFunctions.stopProgressDialog();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				mticketListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 					@Override
@@ -188,6 +193,7 @@ public class TicketListFragment extends Fragment {
 	}
 	
 	public void mDisplayTicketInListViewSortedByStatus(){
+		CommonFunctions.startProgressDialog(getActivity(), "Loading Tickets...");
 		ParseQuery<ParseObject> queryRetriveTicket = 
 				ParseQuery.getQuery(RenterConstantVariables.TICKETTABLE);
 		if(!CommonFunctions.UserTableClass.mCurrentUserIsAdmin){
@@ -231,9 +237,15 @@ public class TicketListFragment extends Fragment {
 					ticket.setmPriority(ticketListPriority);
 					tickets.add(ticket);
 				}
-				mticketListView = (ListView) getActivity().findViewById(R.id.listViewTicket);
-				mTicketAdapter = new TicketAdapter(getActivity(), tickets);
-				mticketListView.setAdapter(mTicketAdapter);
+				try {
+					mticketListView = (ListView) getActivity().findViewById(R.id.listViewTicket);
+					mTicketAdapter = new TicketAdapter(getActivity(), tickets);
+					mticketListView.setAdapter(mTicketAdapter);
+					CommonFunctions.stopProgressDialog();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				mticketListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 					@Override

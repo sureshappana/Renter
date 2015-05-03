@@ -41,25 +41,5 @@
         <item name="android:shadowRadius">1.5</item>
     </style>
 
-    <!-- Colors -->
-    <color name="backgroundColor">#FFFFFFFF</color>
-    <!-- Button Colors -->
-    <color name="buttonTextColor">#FFFFFF</color>
-    <color name="buttonTextShadowColor">#000000</color>
-    <color name="buttonDefaultColor">#FFEF5322</color>
-    <color name="buttonDefaultStrokeColor">#891C1C</color>
-    <color name="buttonPressedColor">#891C1C</color>
-    <color name="buttonPressedStrokeColor">#891C1C</color>
-    
-    <!-- Label Colors -->
-    <color name="labelTextColor">#000000</color>
-    
-    <!-- EditText Colors -->
-    <color name="editTextBackgroundColor">#FFFFFF</color>
-    <color name="editTextBorderColor">#FFEF5322</color>
-    <color name="editTextInactiveBorderColor">#999999</color>
-    <color name="errorTextColor">#FFFF0000</color>
-    <color name="defaultTextColor">#FF000000</color>
-
 
 </resources>

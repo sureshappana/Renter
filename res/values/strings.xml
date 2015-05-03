@@ -90,7 +90,6 @@
         <item>Payments</item>
         <item>Discussion Forum</item>
         <item>Settings</item>
-        <item>Add Friends</item>
         <item>Sign Out</item>
     </string-array>
     
@@ -121,5 +120,7 @@
     <string name="pm_cc_trigger_btn_default">Pay</string>
     
     <string name="pm_emptyMSG">Field cannot be empty</string>
+    
+    <string name="forgotPasswordTestView"><u>Forgot password</u></string>
 
 </resources>

@@ -18,14 +18,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.renter.CommonFunctions;
-import com.example.renter.FacilitiesFragment;
-import com.example.renter.LoginActivity;
+import com.classes.renter.Ticket;
+import com.common.renter.CommonFunctions;
+import com.common.renter.FacilitiesFragment;
+import com.common.renter.LoginActivity;
+import com.common.renter.RenterConstantVariables;
+import com.common.renter.SettingsFragment;
+import com.common.renter.TicketDetailsFragment;
+import com.common.renter.TicketListFragment;
 import com.example.renter.R;
-import com.example.renter.RenterConstantVariables;
-import com.example.renter.Ticket;
-import com.example.renter.TicketDetailsFragment;
-import com.example.renter.TicketListFragment;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 

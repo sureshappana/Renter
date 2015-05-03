@@ -25,32 +25,28 @@ import com.parse.ParseUser;
 
 public class LoginActivity extends Activity {
 
-String tenantName = null;
-String tenantApartmentNo = null;
-static boolean flag = false;
+	String tenantName = null;
+	String tenantApartmentNo = null;
+	static boolean flag = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
-
 		ParseUser currentUser = ParseUser.getCurrentUser();
 		if (currentUser != null) {
-			if (currentUser
-					.getBoolean(CommonFunctions.USER_TABLE_ISCOMMUNITY)) {
+			if (currentUser.getBoolean(CommonFunctions.USER_TABLE_ISCOMMUNITY)) {
 
-				startActivity(new Intent(
-						LoginActivity.this,
+				startActivity(new Intent(LoginActivity.this,
 						CommunityMainActivity.class));
 				finish();// added by midhun
 			}
 
 			else {
-				if(flag == false)
+				if (flag == false)
 					getTenantDetails();
-				
-				
+
 			}
 		}
 		findViewById(R.id.signUpBtn).setOnClickListener(
@@ -115,53 +111,43 @@ static boolean flag = false;
 															"Email Verified",
 															Toast.LENGTH_SHORT)
 															.show();
-													ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-													installation.put("user",ParseUser.getCurrentUser());
-													installation.put("channels", new ArrayList<String>());
-													installation.saveInBackground();
-													
+													ParseInstallation installation = ParseInstallation
+															.getCurrentInstallation();
+													installation
+															.put("user",
+																	ParseUser
+																			.getCurrentUser());
+													installation
+															.put("channels",
+																	new ArrayList<String>());
+													installation
+															.saveInBackground();
+
 													if (ParseUser
 															.getCurrentUser()
 															.get(CommonFunctions.USER_TABLE_ISCOMMUNITY)
 															.toString()
 															.equals("true")) {
 														String mCommunityPushMessageChannel = "Community_"
-																+ CommonFunctions.trimString(ParseUser
-																		.getCurrentUser()
-																		.getObjectId());
-														String mCommunityMessagesPushMessageChannel = "Messages_"
-																+ CommonFunctions.trimString(ParseUser
-																		.getCurrentUser()
-																		.getObjectId());
+																+ CommonFunctions
+																		.trimString(ParseUser
+																				.getCurrentUser()
+																				.getObjectId());
+
 														List<String> subscribedChannels = ParseInstallation
 																.getCurrentInstallation()
 																.getList(
 																		"channels");
-														if (subscribedChannels == null || !subscribedChannels
-																.contains(mCommunityPushMessageChannel)) {
+														if (subscribedChannels == null
+																|| !subscribedChannels
+																		.contains(mCommunityPushMessageChannel)) {
 															ParsePush
 																	.subscribeInBackground(mCommunityPushMessageChannel);
 														}
-														if (subscribedChannels == null || !subscribedChannels
-																.contains(mCommunityMessagesPushMessageChannel))
-															ParsePush
-																	.subscribeInBackground(mCommunityMessagesPushMessageChannel);
 
 													} else {
-														
-														String mCommunityMessagesPushMessageChannel = "Messages_"
-																+ CommonFunctions.trimString(ParseUser
-																.getCurrentUser()
-																.get(CommonFunctions.USER_TABLE_COMMUNITYID)
-																.toString());
-														List<String> subscribedChannels = ParseInstallation
-																.getCurrentInstallation()
-																.getList("channels");
-														if (subscribedChannels == null || !subscribedChannels
-																.contains(mCommunityMessagesPushMessageChannel)) {
-															ParsePush
-																	.subscribeInBackground(mCommunityMessagesPushMessageChannel);
-														}
+														getTenantDetails();
+
 													}
 
 													ParseUser parseUser = ParseUser
@@ -180,7 +166,8 @@ static boolean flag = false;
 														startActivity(new Intent(
 																LoginActivity.this,
 																CommunityMainActivity.class));
-														finish();// added by midhun
+														finish();// added by
+																	// midhun
 													}
 
 													else {
@@ -188,7 +175,8 @@ static boolean flag = false;
 														startActivity(new Intent(
 																LoginActivity.this,
 																TenantHomePageActivity.class));
-														finish();// added by midhun
+														finish();// added by
+																	// midhun
 													}
 												}
 											} else {
@@ -203,7 +191,7 @@ static boolean flag = false;
 					}
 				});
 	}
-	
+
 	private void getTenantDetails() {
 		ParseQuery<ParseObject> query = ParseQuery
 				.getQuery(CommonFunctions.FLATINFO_TABLE);
@@ -222,13 +210,42 @@ static boolean flag = false;
 								.trimString(tenant
 										.get(CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER)
 										.toString());
-						startActivity(new Intent(
-								LoginActivity.this,
+						startActivity(new Intent(LoginActivity.this,
 								TenantHomePageActivity.class));
+
+						String mCommunityMessagesPushMessageChannel = "Messages_"
+								+ CommonFunctions
+										.trimString(ParseUser
+												.getCurrentUser()
+												.get(CommonFunctions.USER_TABLE_COMMUNITYID)
+												.toString());
+						List<String> subscribedChannels = ParseInstallation
+								.getCurrentInstallation().getList("channels");
+						if (subscribedChannels == null
+								|| !subscribedChannels
+										.contains(mCommunityMessagesPushMessageChannel)) {
+							ParsePush
+									.subscribeInBackground(mCommunityMessagesPushMessageChannel);
+						}
+
+						String mUserPushMessageChannel = "Tenant_"
+								+ CommonFunctions
+										.trimString(ParseUser
+												.getCurrentUser()
+												.get(CommonFunctions.USER_TABLE_COMMUNITYID)
+												.toString()) + "_"
+								+ tenantApartmentNo;
+						if (subscribedChannels == null
+								|| !subscribedChannels
+										.contains(mUserPushMessageChannel)) {
+							ParsePush
+									.subscribeInBackground(mUserPushMessageChannel);
+						}
 						finish();// added by midhun
 					}
 				} else {
 					Log.d("score", "Error: " + e.getMessage());
+					CommonFunctions.toastMessage(LoginActivity.this, "Please login again");
 				}
 			}
 		});

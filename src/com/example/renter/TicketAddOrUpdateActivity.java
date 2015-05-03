@@ -36,7 +36,7 @@ import com.parse.SendCallback;
 
 public class TicketAddOrUpdateActivity extends Activity {
 	
-	String mTitle, mDescription, mApartmentNo, mPriority, 
+	static String mTitle, mDescription, mApartmentNo, mPriority, 
 					mTenantId, mCommunityId, mStatus,mPriorityToBeUpdated,mStatusToBeUpdated;								 
 	Date mStartDate,mCloseDate; 
 	Date mCurrentDate;
@@ -117,7 +117,12 @@ public class TicketAddOrUpdateActivity extends Activity {
 							if(e==null){
 								TicketListFragment.mTicketAdapter.insert(mTicket,0);
 								
-								sendPushNotificationToCommunity();
+								String mChannel = "Community_"
+										+ CommonFunctions.trimString(ParseUser.getCurrentUser()
+												.get(CommonFunctions.USER_TABLE_COMMUNITYID)
+												.toString());;
+								String message = mApartmentNo+ " raised the new ticket: "+ mTitle;
+								sendPushNotificationToUsers(mChannel, message);
 								
 								finish();
 							}else{
@@ -238,6 +243,9 @@ public class TicketAddOrUpdateActivity extends Activity {
 						@Override
 						public void done(ParseObject mTicketToBeUpdated, ParseException e) {
 							if(e==null){
+								tenantApartnmentNo = (String) mTicketToBeUpdated.get(RenterConstantVariables.TICKETTABLE_APARTMENT_NO);
+								mTitle = mTitleToBeUpdated;
+								
 								mTicketToBeUpdated.put(RenterConstantVariables.TICKETTABLE_TITLE, mTitleToBeUpdated);
 								mTicketToBeUpdated.put(RenterConstantVariables.TICKETTABLE_DESCRIPTION, mDescriptionToBeUpdated);
 								mTicketToBeUpdated.put(RenterConstantVariables.TICKETTABLE_PRIORITY, mPriorityToBeUpdated);
@@ -250,6 +258,7 @@ public class TicketAddOrUpdateActivity extends Activity {
 								mTicketToBeUpdated.saveInBackground(new SaveCallback() {
 									@Override
 									public void done(ParseException arg0) {
+										sendPushNotification();
 										finish();
 									}
 								});
@@ -317,6 +326,50 @@ public class TicketAddOrUpdateActivity extends Activity {
 
 			}
 		});
+		
+	}
+
+	private void sendPushNotificationToUsers(String mChannel, String message) {
+
+		ParseQuery pushQuery = ParseInstallation.getQuery();
+		pushQuery.whereNotEqualTo("user", ParseUser.getCurrentUser());
+		pushQuery.whereEqualTo("channels",
+				mChannel);
+		
+		ParsePush push = new ParsePush();
+//		push.setChannel(mCommunityMessagesPushMessageChannel);
+		push.setQuery(pushQuery);
+		push.setMessage(message);
+		push.sendInBackground(new SendCallback() {
+
+			@Override
+			public void done(ParseException e) {
+				if (e == null) {
+					Log.d("push", "success");
+				} else {
+					Log.d("push", "failed:" + e.toString());
+				}
+
+			}
+		});
+		
+	}
+
+	public void sendPushNotification() {
+		String mChannel = null;
+		String message = null;
+		if(ParseUser.getCurrentUser().getBoolean(CommonFunctions.USER_TABLE_ISCOMMUNITY)){
+			mChannel = "Tenant_"+ParseUser.getCurrentUser().getObjectId()+"_"+tenantApartnmentNo;
+			message = "Community owner updated the ticket: " + mTitle;
+		} else {
+			
+			 mChannel = "Community_"
+					+ CommonFunctions.trimString(ParseUser.getCurrentUser()
+							.get(CommonFunctions.USER_TABLE_COMMUNITYID)
+							.toString());
+			message = "Tenant "+tenantApartnmentNo+" updated the ticket: " + mTitle;
+		}
+		sendPushNotificationToUsers(mChannel, message);
 		
 	}
 }

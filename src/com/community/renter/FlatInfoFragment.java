@@ -26,7 +26,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.example.renter.CommonFunctions;
+import com.adapter.renter.FlatsAdapter;
+import com.classes.renter.Flat;
+import com.common.renter.CommonFunctions;
+import com.common.renter.RenterConstantVariables;
 import com.example.renter.R;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
@@ -98,15 +101,15 @@ public class FlatInfoFragment extends Fragment {
 								if (!flatNumber.isEmpty()) {
 
 									ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-											CommonFunctions.FLATINFO_TABLE);
+											RenterConstantVariables.FLATINFO_TABLE);
 									query.whereEqualTo(
-											CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
+											RenterConstantVariables.FLATINFO_TABLE_COMMUNITY_OBJECT,
 											CommonFunctions
 													.trimString(ParseUser
 															.getCurrentUser()
 															.getObjectId()));
 									query.whereEqualTo(
-											CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER,
+											RenterConstantVariables.FLATINFO_TABLE_FLAT_NUMBER,
 											flatNumber);
 									query.findInBackground(new FindCallback<ParseObject>() {
 
@@ -122,15 +125,15 @@ public class FlatInfoFragment extends Fragment {
 												return;
 											} else {
 												ParseObject flatInfo = new ParseObject(
-														CommonFunctions.FLATINFO_TABLE);
+														RenterConstantVariables.FLATINFO_TABLE);
 												flatInfo.add(
-														CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
+														RenterConstantVariables.FLATINFO_TABLE_COMMUNITY_OBJECT,
 														CommonFunctions
 																.trimString(ParseUser
 																		.getCurrentUser()
 																		.getObjectId()));
 												flatInfo.add(
-														CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER,
+														RenterConstantVariables.FLATINFO_TABLE_FLAT_NUMBER,
 														flatNumber);
 
 												if (mtenantDetailsCheckBox
@@ -149,13 +152,13 @@ public class FlatInfoFragment extends Fragment {
 																		tenantMailId)
 																.matches()) {
 															flatInfo.add(
-																	CommonFunctions.FLATINFO_TABLE_TENANT_NAME,
+																	RenterConstantVariables.FLATINFO_TABLE_TENANT_NAME,
 																	tenantName);
 															flatInfo.add(
-																	CommonFunctions.FLATINFO_TABLE_TENANT_MAILID,
+																	RenterConstantVariables.FLATINFO_TABLE_TENANT_MAILID,
 																	tenantMailId.toLowerCase());
 															flatInfo.add(
-																	CommonFunctions.FLATINFO_TABLE_ISOCCUPIED,
+																	RenterConstantVariables.FLATINFO_TABLE_ISOCCUPIED,
 																	true);
 														} else {
 															CommonFunctions
@@ -174,7 +177,7 @@ public class FlatInfoFragment extends Fragment {
 													}
 												} else {
 													flatInfo.add(
-															CommonFunctions.FLATINFO_TABLE_ISOCCUPIED,
+															RenterConstantVariables.FLATINFO_TABLE_ISOCCUPIED,
 															false);
 												}
 
@@ -261,13 +264,13 @@ public class FlatInfoFragment extends Fragment {
 		CommonFunctions.startProgressDialog(global_activity,
 				"Fetching Flat Details and its availablity. Please wait...");
 		ParseQuery<ParseObject> queryRetriveFlatInfo = ParseQuery
-				.getQuery(CommonFunctions.FLATINFO_TABLE);
+				.getQuery(RenterConstantVariables.FLATINFO_TABLE);
 		queryRetriveFlatInfo.whereEqualTo(
-				CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
+				RenterConstantVariables.FLATINFO_TABLE_COMMUNITY_OBJECT,
 				CommonFunctions.trimString(ParseUser.getCurrentUser()
 						.getObjectId()));
 		queryRetriveFlatInfo
-				.addAscendingOrder(CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER);
+				.addAscendingOrder(RenterConstantVariables.FLATINFO_TABLE_FLAT_NUMBER);
 		queryRetriveFlatInfo.findInBackground(new FindCallback<ParseObject>() {
 
 			@Override
@@ -280,25 +283,25 @@ public class FlatInfoFragment extends Fragment {
 						String fNumber = CommonFunctions
 								.trimString(flatsList
 										.get(i)
-										.get(CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER)
+										.get(RenterConstantVariables.FLATINFO_TABLE_FLAT_NUMBER)
 										.toString());
 						if (!temp_list.contains(fNumber)) {
 							temp_list.add(fNumber);
 							String temp_tenantName = "", temp_tenantMailId = "";
 							if (flatsList.get(i).get(
-									CommonFunctions.FLATINFO_TABLE_TENANT_NAME) != null)
+									RenterConstantVariables.FLATINFO_TABLE_TENANT_NAME) != null)
 								temp_tenantName = CommonFunctions
 										.trimString(flatsList
 												.get(i)
-												.get(CommonFunctions.FLATINFO_TABLE_TENANT_NAME)
+												.get(RenterConstantVariables.FLATINFO_TABLE_TENANT_NAME)
 												.toString());
 							if (flatsList
 									.get(i)
-									.get(CommonFunctions.FLATINFO_TABLE_TENANT_MAILID) != null)
+									.get(RenterConstantVariables.FLATINFO_TABLE_TENANT_MAILID) != null)
 								temp_tenantMailId = CommonFunctions
 										.trimString(flatsList
 												.get(i)
-												.get(CommonFunctions.FLATINFO_TABLE_TENANT_MAILID)
+												.get(RenterConstantVariables.FLATINFO_TABLE_TENANT_MAILID)
 												.toString().toLowerCase());
 							flats.add(new Flat(
 									fNumber,
@@ -307,7 +310,7 @@ public class FlatInfoFragment extends Fragment {
 									CommonFunctions
 											.trimString(flatsList
 													.get(i)
-													.get(CommonFunctions.FLATINFO_TABLE_ISOCCUPIED)
+													.get(RenterConstantVariables.FLATINFO_TABLE_ISOCCUPIED)
 													.toString())
 
 							));
@@ -335,21 +338,21 @@ public class FlatInfoFragment extends Fragment {
 									for (ParseObject obj : global_flatsList) {
 										if (CommonFunctions
 												.trimString(
-														obj.get(CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER)
+														obj.get(RenterConstantVariables.FLATINFO_TABLE_FLAT_NUMBER)
 																.toString())
 												.equals(flatNumber)) {
 											if (CommonFunctions
 													.trimString(
-															obj.get(CommonFunctions.FLATINFO_TABLE_ISOCCUPIED)
+															obj.get(RenterConstantVariables.FLATINFO_TABLE_ISOCCUPIED)
 																	.toString())
 													.equals("true")) {
 												listItems.add(CommonFunctions
 														.trimString(obj
-																.get(CommonFunctions.FLATINFO_TABLE_TENANT_NAME)
+																.get(RenterConstantVariables.FLATINFO_TABLE_TENANT_NAME)
 																.toString()));
 												listItemsMailId.add(CommonFunctions
 														.trimString(obj
-																.get(CommonFunctions.FLATINFO_TABLE_TENANT_MAILID)
+																.get(RenterConstantVariables.FLATINFO_TABLE_TENANT_MAILID)
 																.toString()));
 											}
 										}
@@ -407,7 +410,7 @@ public class FlatInfoFragment extends Fragment {
 					// try {
 					//
 					// ParseQuery<ParseObject> query = ParseQuery
-					// .getQuery(CommonFunctions.FLATINFO_TABLE);
+					// .getQuery(RenterConstantVariables.FLATINFO_TABLE);
 					// query.getInBackground(
 					// global_flatsList
 					// .get(position)
@@ -418,13 +421,13 @@ public class FlatInfoFragment extends Fragment {
 					// ParseException e) {
 					// if (e == null) {
 					// // flatInfo.add(
-					// // CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
+					// // RenterConstantVariables.FLATINFO_TABLE_COMMUNITY_OBJECT,
 					// // CommonFunctions
 					// // .trimString(ParseUser
 					// // .getCurrentUser()
 					// // .getObjectId()));
 					// // flatInfo.add(
-					// // CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER,
+					// // RenterConstantVariables.FLATINFO_TABLE_FLAT_NUMBER,
 					// // flatNumber);
 					//
 					// if (mtenantDetailsCheckBox
@@ -440,13 +443,13 @@ public class FlatInfoFragment extends Fragment {
 					// && !tenantMailId
 					// .isEmpty()) {
 					// flatInfo.put(
-					// CommonFunctions.FLATINFO_TABLE_TENANT_NAME,
+					// RenterConstantVariables.FLATINFO_TABLE_TENANT_NAME,
 					// tenantName);
 					// flatInfo.put(
-					// CommonFunctions.FLATINFO_TABLE_TENANT_MAILID,
+					// RenterConstantVariables.FLATINFO_TABLE_TENANT_MAILID,
 					// tenantMailId);
 					// flatInfo.put(
-					// CommonFunctions.FLATINFO_TABLE_ISOCCUPIED,
+					// RenterConstantVariables.FLATINFO_TABLE_ISOCCUPIED,
 					// true);
 					//
 					// } else {
@@ -458,7 +461,7 @@ public class FlatInfoFragment extends Fragment {
 					// }
 					// } else {
 					// flatInfo.put(
-					// CommonFunctions.FLATINFO_TABLE_ISOCCUPIED,
+					// RenterConstantVariables.FLATINFO_TABLE_ISOCCUPIED,
 					// false);
 					// }
 					// flatInfo.saveInBackground();
@@ -538,16 +541,16 @@ public class FlatInfoFragment extends Fragment {
 		final ArrayList<String> listItemsMailSelected = new ArrayList<String>();
 		for (ParseObject obj : global_flatsList) {
 			if (CommonFunctions.trimString(
-					obj.get(CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER)
+					obj.get(RenterConstantVariables.FLATINFO_TABLE_FLAT_NUMBER)
 							.toString()).equals(flatNumber)) {
 				if (CommonFunctions.trimString(
-						obj.get(CommonFunctions.FLATINFO_TABLE_ISOCCUPIED)
+						obj.get(RenterConstantVariables.FLATINFO_TABLE_ISOCCUPIED)
 								.toString()).equals("true")) {
 					listItems.add(CommonFunctions.trimString(obj.get(
-							CommonFunctions.FLATINFO_TABLE_TENANT_NAME)
+							RenterConstantVariables.FLATINFO_TABLE_TENANT_NAME)
 							.toString()));
 					listItemsMailId.add(CommonFunctions.trimString(obj.get(
-							CommonFunctions.FLATINFO_TABLE_TENANT_MAILID)
+							RenterConstantVariables.FLATINFO_TABLE_TENANT_MAILID)
 							.toString()));
 				}
 			}
@@ -590,15 +593,15 @@ public class FlatInfoFragment extends Fragment {
 										"Deleting the Flat. Please wait...");
 
 								ParseQuery<ParseObject> query = ParseQuery
-										.getQuery(CommonFunctions.FLATINFO_TABLE);
+										.getQuery(RenterConstantVariables.FLATINFO_TABLE);
 
 								query.whereEqualTo(
-										CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
+										RenterConstantVariables.FLATINFO_TABLE_COMMUNITY_OBJECT,
 										CommonFunctions.trimString(ParseUser
 												.getCurrentUser().getObjectId()
 												.toString()));
 								query.whereEqualTo(
-										CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER,
+										RenterConstantVariables.FLATINFO_TABLE_FLAT_NUMBER,
 										mFlatsAdapter.getItem(position)
 												.getFlatNumber());
 								query.findInBackground(new FindCallback<ParseObject>() {
@@ -673,8 +676,8 @@ public class FlatInfoFragment extends Fragment {
 		// global_activity,
 		// "Removing the selected tenants");
 		ParseQuery<ParseObject> query = ParseQuery
-				.getQuery(CommonFunctions.FLATINFO_TABLE);
-		query.whereContainedIn(CommonFunctions.FLATINFO_TABLE_TENANT_MAILID,
+				.getQuery(RenterConstantVariables.FLATINFO_TABLE);
+		query.whereContainedIn(RenterConstantVariables.FLATINFO_TABLE_TENANT_MAILID,
 				listItemsMailSelected);
 		query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> flatInfoTableList,
@@ -685,15 +688,15 @@ public class FlatInfoFragment extends Fragment {
 
 					if (status) {
 						ParseObject object = new ParseObject(
-								CommonFunctions.FLATINFO_TABLE);
+								RenterConstantVariables.FLATINFO_TABLE);
 						object.add(
-								CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
+								RenterConstantVariables.FLATINFO_TABLE_COMMUNITY_OBJECT,
 								CommonFunctions.trimString(ParseUser
 										.getCurrentUser().getObjectId()
 										.toString()));
-						object.add(CommonFunctions.FLATINFO_TABLE_ISOCCUPIED,
+						object.add(RenterConstantVariables.FLATINFO_TABLE_ISOCCUPIED,
 								false);
-						object.add(CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER,
+						object.add(RenterConstantVariables.FLATINFO_TABLE_FLAT_NUMBER,
 								flatNumber);
 						object.saveInBackground(new SaveCallback() {
 
@@ -754,20 +757,20 @@ public class FlatInfoFragment extends Fragment {
 					public void onClick(DialogInterface dialog, int which) {
 
 						ParseQuery<ParseObject> removeFlatInfo = new ParseQuery<ParseObject>(
-								CommonFunctions.FLATINFO_TABLE);
+								RenterConstantVariables.FLATINFO_TABLE);
 						removeFlatInfo
 								.whereEqualTo(
-										CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
+										RenterConstantVariables.FLATINFO_TABLE_COMMUNITY_OBJECT,
 										CommonFunctions
 												.trimString(ParseUser
 														.getCurrentUser()
 														.getObjectId()));
 						removeFlatInfo.whereEqualTo(
-								CommonFunctions.FLATINFO_TABLE_ISOCCUPIED,
+								RenterConstantVariables.FLATINFO_TABLE_ISOCCUPIED,
 								false);
 						removeFlatInfo
 								.whereEqualTo(
-										CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER,
+										RenterConstantVariables.FLATINFO_TABLE_FLAT_NUMBER,
 										mFlatsAdapter.getItem(position)
 												.getFlatNumber());
 						removeFlatInfo
@@ -786,13 +789,13 @@ public class FlatInfoFragment extends Fragment {
 								});
 
 						ParseObject flatInfo = new ParseObject(
-								CommonFunctions.FLATINFO_TABLE);
+								RenterConstantVariables.FLATINFO_TABLE);
 						flatInfo.add(
-								CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
+								RenterConstantVariables.FLATINFO_TABLE_COMMUNITY_OBJECT,
 								CommonFunctions.trimString(ParseUser
 										.getCurrentUser().getObjectId()));
 						flatInfo.add(
-								CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER,
+								RenterConstantVariables.FLATINFO_TABLE_FLAT_NUMBER,
 								mFlatsAdapter.getItem(position).getFlatNumber());
 
 						String tenantName = mTenantName.getText().toString();
@@ -802,13 +805,13 @@ public class FlatInfoFragment extends Fragment {
 							if (android.util.Patterns.EMAIL_ADDRESS.matcher(
 									tenantMailId).matches()) {
 								flatInfo.add(
-										CommonFunctions.FLATINFO_TABLE_TENANT_NAME,
+										RenterConstantVariables.FLATINFO_TABLE_TENANT_NAME,
 										tenantName);
 								flatInfo.add(
-										CommonFunctions.FLATINFO_TABLE_TENANT_MAILID,
+										RenterConstantVariables.FLATINFO_TABLE_TENANT_MAILID,
 										tenantMailId);
 								flatInfo.add(
-										CommonFunctions.FLATINFO_TABLE_ISOCCUPIED,
+										RenterConstantVariables.FLATINFO_TABLE_ISOCCUPIED,
 										true);
 
 								flatInfo.saveInBackground(new SaveCallback() {

@@ -17,7 +17,8 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.renter.CommonFunctions;
+import com.common.renter.CommonFunctions;
+import com.common.renter.RenterConstantVariables;
 import com.example.renter.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -46,9 +47,9 @@ public class NotificationsFragment extends Fragment {
 				R.layout.fragment_community_notifications, container, false);
 
 		ParseQuery<ParseObject> mQueryRetrieveFlatMembers = ParseQuery
-				.getQuery(CommonFunctions.FLATINFO_TABLE);
+				.getQuery(RenterConstantVariables.FLATINFO_TABLE);
 		mQueryRetrieveFlatMembers.whereEqualTo(CommonFunctions
-				.trimString(CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT),
+				.trimString(RenterConstantVariables.FLATINFO_TABLE_COMMUNITY_OBJECT),
 				(String) ParseUser.getCurrentUser().getObjectId());
 		mQueryRetrieveFlatMembers.whereEqualTo(
 				CommonFunctions.FlatInfoTableClass.TENANT_IS_OCCUPIED, true);
@@ -213,11 +214,11 @@ public class NotificationsFragment extends Fragment {
 		CommonFunctions.toastMessage(getActivity(), "Sending Notification. Please wait...");
 		mailIds = new ArrayList<String>();
 		ParseQuery<ParseObject> queryRetrieveMailId = ParseQuery
-				.getQuery(CommonFunctions.FLATINFO_TABLE);
+				.getQuery(RenterConstantVariables.FLATINFO_TABLE);
 		queryRetrieveMailId.whereContainedIn(
-				CommonFunctions.FLATINFO_TABLE_FLAT_NUMBER, mFlatNoSelected);
+				RenterConstantVariables.FLATINFO_TABLE_FLAT_NUMBER, mFlatNoSelected);
 		queryRetrieveMailId.selectKeys(Arrays
-				.asList(CommonFunctions.FLATINFO_TABLE_TENANT_MAILID));
+				.asList(RenterConstantVariables.FLATINFO_TABLE_TENANT_MAILID));
 		queryRetrieveMailId.findInBackground(new FindCallback<ParseObject>() {
 
 			@Override
@@ -228,21 +229,21 @@ public class NotificationsFragment extends Fragment {
 									+ objects.size());
 					for (ParseObject obj : objects){
 						mailIds.add(CommonFunctions.trimString(obj.get(
-								CommonFunctions.FLATINFO_TABLE_TENANT_MAILID)
+								RenterConstantVariables.FLATINFO_TABLE_TENANT_MAILID)
 								.toString()));
 						Log.d("renter",
 								"Notification Fragment:Retrieved Mail Id:"
 										+ CommonFunctions.trimString(obj.get(
-												CommonFunctions.FLATINFO_TABLE_TENANT_MAILID)
+												RenterConstantVariables.FLATINFO_TABLE_TENANT_MAILID)
 												.toString()));
 
 					}
 						
 					ParseQuery<ParseObject> queryRetrieveUserObject = ParseQuery
-							.getQuery(CommonFunctions.USER_TABLE);
+							.getQuery(RenterConstantVariables.USER_TABLE);
 					queryRetrieveUserObject
 							.whereContainedIn(
-									CommonFunctions.USER_TABLE_USERNAME,
+									RenterConstantVariables.USER_TABLE_USERNAME,
 									mailIds);
 					queryRetrieveUserObject
 							.findInBackground(new FindCallback<ParseObject>() {

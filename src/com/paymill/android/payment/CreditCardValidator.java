@@ -10,9 +10,9 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.EditText;
 
-import com.community.renter.PaymentFragment;
 import com.example.renter.R;
 import com.paymill.android.payment.CardTypeParser.CardType;
+import com.tenant.renter.PaymentFragment;
 
 @SuppressLint("ResourceAsColor")
 public class CreditCardValidator {

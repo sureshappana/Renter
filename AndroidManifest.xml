@@ -27,13 +27,13 @@
     <uses-permission android:name="com.example.renter.permission.C2D_MESSAGE" />
 
     <application
-        android:name=".ParseApplication"
+        android:name="com.common.renter.ParseApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".LoginActivity"
+            android:name="com.common.renter.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name="com.common.renter.SignUpActivity"
             android:label="@string/title_activity_sign_up" >
         </activity>
         <activity
@@ -50,15 +50,15 @@
             android:label="@string/title_activity_community_main" >
         </activity>
         <activity
-            android:name=".TicketsActivity"
+            android:name="com.common.renter.TicketsActivity"
             android:label="@string/title_activity_tickets" >
         </activity>
         <activity
-            android:name=".TenantHomePageActivity"
+            android:name="com.tenant.renter.TenantHomePageActivity"
             android:label="@string/title_activity_tenant" >
         </activity>
         <activity
-            android:name=".TicketAddOrUpdateActivity"
+            android:name="com.common.renter.TicketAddOrUpdateActivity"
             android:label="@string/title_activity_add_tickets" >
         </activity>
 

@@ -63,6 +63,8 @@
 	<string name="mNotificationHint">Add a notification</string>
 	<string name="mNotificationRecipientsTitle">The following flats will receive the notification: </string>
 	<string name="mFacilityName">Facility Name</string>
+	<string name="mFacilityTitle">Facilities</string>
+	<string name="mVacancyTitle">Vacancies</string>
 	<string name="mFacilityTotal">Total</string>
 	<string name="mFacilityOccupied">Occupied</string>
 	<string name="pm_wrongAmountFomat">Entered amount is not valid</string>

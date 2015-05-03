@@ -111,7 +111,8 @@ public class SettingsFragment extends Fragment {
 										if (e == null) {
 											object.put(
 													CommonFunctions.UserTableClass.CONTACT_NUMBER,
-													mUpdatedPhoneNumber);
+													Long.parseLong(mUpdatedPhoneNumber));
+											object.saveInBackground();
 										} else {
 											Log.d("obj", e.toString());
 										}
@@ -134,6 +135,7 @@ public class SettingsFragment extends Fragment {
 											object.put(
 													CommonFunctions.FlatInfoTableClass.TENANT_NAME,
 													mUpdatedName);
+											object.saveInBackground();
 
 										}
 									});
@@ -151,6 +153,7 @@ public class SettingsFragment extends Fragment {
 												object.put(
 														CommonFunctions.UserTableClass.COMMUNITY_NAME,
 														mUpdatedName);
+												object.saveInBackground();
 											} else {
 												Log.d("obj", e.toString());
 											}

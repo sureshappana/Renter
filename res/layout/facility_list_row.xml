@@ -1,47 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal" >
-
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="6dp" >
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="4" >
+        android:layout_height="match_parent"
+        android:layout_weight="2" >
 
         <TextView
             android:id="@+id/facilityNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:textSize="16sp"
-            android:textStyle="bold" 
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical" />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:layout_weight="2"
+        android:gravity="center"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/facilityAvailableTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/facilityTotalTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:textSize="14sp" />
     </LinearLayout>
+
     <ImageView
         android:id="@+id/deleteFacility"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1"
         android:src="@drawable/delete_holo_light" />
-    
+
 </LinearLayout>

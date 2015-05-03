@@ -47,7 +47,7 @@ public class FacilitiesFragment extends Fragment {
 	String facilityName = null;
 	int facilityTotal = -1;
 	int facilityOccupied = 0;
-
+	TextView mVacantFlatInfo;
 	public FacilitiesFragment() {
 
 	}
@@ -66,34 +66,62 @@ public class FacilitiesFragment extends Fragment {
 	public void onViewCreated(final View view, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onViewCreated(view, savedInstanceState);
+		mVacantFlatInfo =  (TextView) view.findViewById(R.id.vacantFlatInfo);
 
-		if (!ParseUser.getCurrentUser().getBoolean(
-				CommonFunctions.USER_TABLE_ISCOMMUNITY)) {
+//		if (!ParseUser.getCurrentUser().getBoolean(
+//				CommonFunctions.USER_TABLE_ISCOMMUNITY)) {
 
-			ParseQuery<ParseObject> query = ParseQuery
-					.getQuery(CommonFunctions.FLATINFO_TABLE);
-			query.whereEqualTo(CommonFunctions.FLATINFO_TABLE_ISOCCUPIED, false);
-			query.whereEqualTo(
-					CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
-					CommonFunctions.trimString(ParseUser.getCurrentUser()
-							.get(CommonFunctions.USER_TABLE_COMMUNITYID)
-							.toString()));
-			query.findInBackground(new FindCallback<ParseObject>() {
-				public void done(List<ParseObject> appList, ParseException e) {
-					if (e == null) {
-						((TextView) view.findViewById(R.id.vacantFlatInfo))
-								.setText("Vacant Flats:" + appList.size());
-					}
-				}
-			});
+//			ParseQuery<ParseObject> query = ParseQuery
+//					.getQuery(CommonFunctions.FLATINFO_TABLE);
+//			query.whereEqualTo(CommonFunctions.FLATINFO_TABLE_ISOCCUPIED, false);
+//			query.whereEqualTo(
+//					CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
+//					CommonFunctions.trimString(ParseUser.getCurrentUser()
+//							.get(CommonFunctions.USER_TABLE_COMMUNITYID)
+//							.toString()));
+//			query.findInBackground(new FindCallback<ParseObject>() {
+//				public void done(List<ParseObject> appList, ParseException e) {
+//					if (e == null) {
+//						((TextView) view.findViewById(R.id.vacantFlatInfo))
+//								.setText("Number of vacant Flats: " + appList.size());
+//					}
+//				}
+//			});
 
-		}
+//		}
 
 		updateFacilityListView();
 	}
 
 	private void updateFacilityListView() {
 		facilities.clear();
+		ParseQuery<ParseObject> query = ParseQuery
+				.getQuery(CommonFunctions.FLATINFO_TABLE);
+		query.whereEqualTo(CommonFunctions.FLATINFO_TABLE_ISOCCUPIED, false);
+		if(!ParseUser.getCurrentUser().getBoolean(
+				CommonFunctions.USER_TABLE_ISCOMMUNITY)){
+		query.whereEqualTo(
+				CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
+				CommonFunctions.trimString(ParseUser.getCurrentUser()
+						.get(CommonFunctions.USER_TABLE_COMMUNITYID)
+						.toString()));
+		}
+		else{
+			query.whereEqualTo(
+					CommonFunctions.FLATINFO_TABLE_COMMUNITY_OBJECT,
+					CommonFunctions.trimString(ParseUser.getCurrentUser()
+							.getObjectId()
+							.toString()));
+			
+		}
+		query.findInBackground(new FindCallback<ParseObject>() {
+			public void done(List<ParseObject> appList, ParseException e) {
+				if (e == null) {
+					mVacantFlatInfo
+							.setText("Number of vacant Flats: " + appList.size());
+				}
+			}
+		});
 		CommonFunctions
 				.startProgressDialog(getActivity(),
 						"Fetching Facility Details and its availablity. Please wait...");
